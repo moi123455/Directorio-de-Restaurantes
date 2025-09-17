@@ -75,8 +75,11 @@ const dbConfig = {
     host: process.env.DB_HOST || 'localhost',
     user: process.env.DB_USER || 'root',
     password: process.env.DB_PASSWORD || '',
-    database: process.env.DB_NAME || 'directorio_restaurantes'
+    database: process.env.DB_NAME || 'directorio_restaurantes',
+    port: process.env.DB_PORT ? parseInt(process.env.DB_PORT) : 3306,
+    connectTimeout: 20000 // 20 segundos para evitar timeout rápido
 };
+
 
 let db;
 
@@ -91,6 +94,7 @@ async function connectDB() {
         process.exit(1);
     }
 }
+
 
 // ==================== RUTA API: OBTENER RESTAURANTES ====================
 app.get('/api/restaurantes', async (req, res) => {

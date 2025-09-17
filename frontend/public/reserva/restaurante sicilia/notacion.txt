@@ -1,0 +1,1 @@
+cambiar el estilo de fondo de la img1 a una similar a img2-3

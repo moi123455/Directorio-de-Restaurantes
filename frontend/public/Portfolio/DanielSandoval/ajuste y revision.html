@@ -1,0 +1,160 @@
+<section id="sobremi" class="sobremi">
+    <div class="contenedor-seccion">
+        <h2>Sobre mi</h2>
+        <p><span>Buenos días!/tardes!/noche! De donde sea que me leas, quiero enviarte un saludo y las gracias
+                por detenerte a leer mi Curriculum Vitae. Mi nombre es Jefferson Rosales.</span> Soy un joven de 21 años
+            que actualmente se encuentra en la búsqueda de empleo en el área de desarrollo web y full stack. Llevo
+            poco tiempo en esto, pero aspiro a ser mejor. Pero para ello, sería de mucha ayuda contar con la tutoría de
+            expertos en la materia. ¡No le entretengo más y espero que siga leyendo! Espero que algo de lo que
+            encuentre,
+            le llame la atención. </p>
+
+        <div class="fila">
+            <!--Datos personales-->
+            <div class="col">
+                <h3> Datos personales</h3>
+                <ul>
+                    <li>
+                        <strong>Cumpleaños</strong>
+                        30/01/2005
+                    </li>
+                    <li>
+                        <strong>Teléfono</strong>
+                        +58 424-6122923
+                    </li>
+                    <li>
+                        <strong>Email</strong>
+                        daniel.ssoto05@gmail.com
+                    </li>
+                    <li>
+                        <strong>Dirección</strong>
+                        Venezuela, Maracaibo. Estado Zulia
+                    </li>
+                    <li>
+                        <strong>Cargo</strong>
+                        <span>Freelance</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!--Intereses-->
+            <div class="col">
+                <h3>Intereses</h3>
+                <div class="contenedor-intereses">
+                    <div class="interes">
+                        <i class="fa-solid fa-gamepad"></i>
+                        <span>Juegos</span>
+                    </div>
+                    <div class="interes">
+                        <i class="fa-solid fa-headphones"></i>
+                        <span>Música</span>
+                    </div>
+                    <div class="interes">
+                        <i class="fa-solid fa-plane"></i>
+                        <span>Viajes</span>
+                    </div>
+                    <div class="interes">
+                        <i class="fa-brands fa-windows"></i>
+                        <span>Windows</span>
+                    </div>
+                    <div class="interes">
+                        <i class="fa-brands fa-apple"></i>
+                        <span>MAC OS</span>
+                    </div>
+                    <div class="interes">
+                        <i class="fa-brands fa-linux"></i>
+                        <span>Linux</span>
+                    </div>
+                    <div class="interes">
+                        <i class="fa-solid fa-person-swimming"></i>
+                        <span>Natación</span>
+                    </div>
+                    <div class="interes">
+                        <i class="fa-solid fa-book"></i>
+                        <span>Lectura</span>
+                    </div>
+                    <div class="interes">
+                        <i class="fa-solid fa-car"></i>
+                        <span>Autos</span>
+                    </div>
+                    <div class="interes">
+                        <i class="fa-solid fa-scroll"></i>
+                        <span>Guiones</span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <button>
+            Descargar CV <i class="fa-solid fa-download"></i>
+            <span class="overlay"></span>
+        </button>
+    </div>
+</section>
+
+
+
+
+
+<div class="redes">
+    <a target="_blank" href="https://www.facebook.com/profile.php?id=61574041621849"><i
+            class="fa-brands fa-facebook-f"></i></a>
+    <a target="_blank" href="https://x.com/FSiProcess?t=VRgNablIVabVv7XZeJNtuw&s=08"><i
+            class="fa-brands fa-twitter"></i></a>
+    <a target="_blank" href="https://www.instagram.com/full.stack10?igsh=MWNpOWhrZDZxdjFmMw=="><i
+            class="fa-brands fa-instagram"></i></a>
+    <a target="_blank" href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+</div>
+
+
+<button onclick="window.location.href= 'Informe Curricular Jefferson Rosales.pdf'">
+    Descargar PDF <i class="fa-solid fa-download"></i>
+    <span class="overlay"></span>
+</button></button>
+
+
+<button target="_blank">
+    Descargar CV <i class="fa-solid fa-download"></i>
+    <span class="overlay"></span>
+</button>
+
+
+<button onclick="window.open('ruta/del/cv', '_blank')">
+    Descargar PDF <i class="fa-solid fa-download"></i>
+    <span class="overlay"></span>
+</button>
+
+
+<button>
+    Enviar Mensaje<i class="fa-solid fa-paper-plane"></i>
+    <span class="overlay"></span>
+</button>
+
+<div class="col">
+    <input type="text" placeholder="Tú Nombre">
+    <input type="text" placeholder="Número telefónico">
+    <input type="text" placeholder="Dirección de correo">
+    <input type="text" placeholder="Tema">
+    <textarea name="" id="" cols="30" rows="10" placeholder="Mensaje"></textarea>
+    <button>
+        Enviar Mensaje<i class="fa-solid fa-paper-plane"></i>
+        <span class="overlay"></span>
+    </button>
+</div>
+
+
+<script>
+    document.querySelector('.col button').addEventListener('click', function () {
+        var nombre = document.querySelector('.col input[placeholder="Tú Nombre"]').value;
+        var telefono = document.querySelector('.col input[placeholder="Número telefónico"]').value;
+        var correo = document.querySelector('.col input[placeholder="Dirección de correo"]').value;
+        var tema = document.querySelector('.col input[placeholder="Tema"]').value;
+        var mensaje = document.querySelector('.col textarea').value;
+
+        var mailtoLink = 'mailto:daniel.ssoto05@gmail.com' +
+            '?subject=' + encodeURIComponent(tema) +
+            '&body=' + encodeURIComponent('Nombre: ' + nombre + '\nTeléfono: ' + telefono + '\nCorreo: ' + correo + '\n\nMensaje:\n' + mensaje);
+
+        window.location.href = mailtoLink;
+    });
+</script>

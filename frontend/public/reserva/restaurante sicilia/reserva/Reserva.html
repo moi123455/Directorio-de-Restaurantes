@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurante Sicilia: Reservar</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+     <!--seccion de header-->
+     <div class="fondo">
+   <header class="header text-center"><h1>Restaurante Sicilia</h1></header>
+   
+   <nav class="navbar navbar-expand-sm bg-body-tertiary">
+   <div class="navbar-nav">
+         <button type="button" class="btn btn-primary ms-auto d-block">
+         <a class="navbar-brand btn " onclick="window.history.back()">Volver al inicio</a>
+        </button>
+        </div>
+        </div>
+        </div>
+        </nav>
+<form class="row g-3">
+  <div class="col-md-6">
+    <label for="inputEmail4" class="form-label">Correo electronico</label>
+    <input type="email" class="form-control" placeholder="este correo recibira notificacion " id="inputEmail4">
+  </div>
+
+  <div class="col-md-6">
+    <label for="inputTelefono" class="form-label">Teléfono del comensal</label>
+    <input type="tel" class="form-control" placeholder="Ej: 0414-1234567" id="inputTelefono">
+  </div>
+
+  <div class="col">
+     <label for="inputAddress" class="form-label">Nombre del comensal</label>
+    <input type="text" class="form-control" placeholder="Indique nombre completo" aria-label="First name" id="inputAddress">
+  </div>
+
+ <!-- Select para elegir el número de comensales -->
+<div class="col-12">
+  <label for="mesaSelect" class="form-label">Número de personas</label>
+  <select class="form-select" id="mesaSelect" onchange="mostrarcuadro()">
+    <option selected>Seleccione el número de comensales...</option>
+    <option value="1">Mesa individual</option>
+    <option value="2">Mesa para 2</option>
+    <option value="3">Mesa para 3</option>
+    <option value="4">Mesa para 4</option>
+    <option value="5">Mesa para 5</option>
+    <option value="6">Mesa para 6</option>
+    <option value="7">Mesa para 7</option>
+    <option value="8">Mesa para 8</option>
+    <option value="etc">Mesa para un grupo grande (especificar)</option>
+  </select>
+</div>
+
+<!-- reacuadro oculto que solo se desplegara al seleccionar el especificar un grupo grande -->
+<div id="grupo" style="display: none;" class="mt-3">
+  <label for="cantidadGrupo" class="form-label">Especifique el numero de comensales:</label>
+  <input type="number" class="form-control" id="cantidadGrupo" min="9" placeholder="Ejemplo: Mesa para 15..">
+</div>
+
+<!-- Selector de fecha con Datepicker -->
+  <div class="col-md-6">
+    <label for="fechaReserva" class="form-label">Seleccione la fecha</label>
+    <input type="text" class="form-control" id="fechaReserva" placeholder="Haga click para seleccionar una fecha">
+  </div>
+</div>
+<!-- Inicializar el Datepicker -->
+<script>
+  $(document).ready(function() {
+    $('#fechaReserva').datepicker({
+      format: 'dd/mm/yyyy', // Formato de fecha
+      autoclose: true, // Cierra automáticamente después de seleccionar
+      todayHighlight: true // Resalta la fecha actual
+    });
+  });
+</script>
+
+<div class="col-md-6">
+    <label for="horaReserva" class="form-label">Hora de la reserva</label>
+    <input type="time" class="form-control" id="horaReserva">
+  </div>
+
+<div class="d-flex justify-content-start">
+  <button id="menuboton" class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#menuComidas">
+    menú del día
+  </button>
+</div>
+
+<div class="collapse mt-3 text-start" id="menuComidas">
+  <div class="container">
+    <!-- Encabezado -->
+    <div class="row fw-bold">
+      <div class="col-md-3"><h5>Horarios</h5></div>
+      <div class="col-md-3"><h5>Plato</h5></div>
+      <div class="col-md-2"><h5>Precio</h5></div>
+      <div class="col-md-4"><h5>Elección de comida</h5></div>
+    </div>
+
+    <!-- Fila de desayuno 1 -->
+    <div class="row align-items-center">
+      <div class="col-md-3">Desayuno</div>
+      <div class="col-md-3">🍞 Arepas con queso</div>
+      <div class="col-md-2">2.5$</div>
+      <div class="col-md-4">
+        <button 
+          class="btn btn-success btn-sm seleccionar-comida" 
+          data-comida="🍞 Arepas con queso" 
+          data-precio="2.5$">
+          Seleccionar
+        </button>
+      </div>
+    </div>
+
+    <!-- Fila de desayuno 2 -->
+    <div class="row align-items-center">
+      <div class="col-md-3">Desayuno</div>
+      <div class="col-md-3">🥞 Cachapas</div>
+      <div class="col-md-2">3$</div>
+      <div class="col-md-4">
+        <button 
+          class="btn btn-success btn-sm seleccionar-comida" 
+          data-comida="🥞 Cachapas" 
+          data-precio="3$">
+          Seleccionar
+        </button>
+      </div>
+    </div>
+
+    <!-- Fila de almuerzo 1 -->
+    <div class="row align-items-center">
+      <div class="col-md-3">Almuerzo</div>
+      <div class="col-md-3">🍛 Pabellón criollo</div>
+      <div class="col-md-2">4$</div>
+      <div class="col-md-4">
+        <button 
+          class="btn btn-success btn-sm seleccionar-comida" 
+          data-comida="🍛 Pabellón criollo" 
+          data-precio="4$">
+          Seleccionar
+        </button>
+      </div>
+    </div>
+
+    <!-- Fila de almuerzo 2 -->
+    <div class="row align-items-center">
+      <div class="col-md-3">Almuerzo</div>
+      <div class="col-md-3">🍗 Pollo a la brasa</div>
+      <div class="col-md-2">5$</div>
+      <div class="col-md-4">
+        <button 
+          class="btn btn-success btn-sm seleccionar-comida" 
+          data-comida="🍗 Pollo a la brasa" 
+          data-precio="5$">
+          Seleccionar
+        </button>
+      </div>
+    </div>
+
+    <!-- Fila de cena 1 -->
+    <div class="row align-items-center">
+      <div class="col-md-3">Cena</div>
+      <div class="col-md-3">🧀 Pasticho</div>
+      <div class="col-md-2">5$</div>
+      <div class="col-md-4">
+        <button 
+          class="btn btn-success btn-sm seleccionar-comida" 
+          data-comida="🧀 Pasticho" 
+          data-precio="5$">
+          Seleccionar
+        </button>
+      </div>
+    </div>
+
+    <!-- Fila de cena 2 -->
+    <div class="row align-items-center">
+      <div class="col-md-3">Cena</div>
+      <div class="col-md-3">🐟 Pescado frito</div>
+      <div class="col-md-2">5$</div>
+      <div class="col-md-4">
+        <button 
+          class="btn btn-success btn-sm seleccionar-comida" 
+          data-comida="🐟 Pescado frito" 
+          data-precio="5$">
+          Seleccionar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <div class="col-12">
+    <label for="restricciones" class="form-label">Alergias o Restricciones Alimenticias</label>
+    <input type="text" class="form-control" id="restricciones" placeholder="indique cualquier tipo de alergia o indicativos para su reserva, ejemplo: sin pimienta, sin mani o frutos secos.. etc.">
+  </div>
+  <div class="d-flex justify-content-start">
+    <button class="btn btn-warning" id="advertencia" type="button" data-bs-toggle="collapse" data-bs-target="#eventoPrivado">
+        ¿Reserva privada o especial?
+    </button>
+</div>
+
+<div class="collapse mt-3" id="eventoPrivado">
+    <div class="card card-body">
+        <label for="motivoPrivado" class="form-label">indique por qué la reserva seria especial o privada:</label>
+        <textarea class="form-control" id="motivoPrivado" rows="3" placeholder="Ejemplo: Cumpleaños, cena de negocios, aniversario..."></textarea>
+
+        <div class="form-check mt-2">
+            <input class="form-check-input" type="checkbox" id="confirmarCostoExtra">
+            <label class="form-check-label" for="confirmarCostoExtra">
+                Confirmo que entiendo el costo adicional por reserva privada.
+            </label>
+        </div>
+
+        <div id="mensajeAdvertencia" class="alert alert-danger mt-3" style="display: none;">
+            ⚠️ **ADVERTENCIA:** Se ha activado la opción de reserva privada. El monto a pagar aumentará.
+        </div>
+    </div>
+</div>
+
+  <div id="mapaRestaurante">
+    <button class="mesa" data-mesa="1">1</button>
+    <button class="mesa" data-mesa="2">2</button>
+    <button class="mesa" data-mesa="3">3</button>
+    <button class="mesa" data-mesa="4">4</button>
+    <button class="mesa" data-mesa="5">5</button>
+    <button class="mesa" data-mesa="6">6</button>
+    <button class="mesa" data-mesa="7">7</button>
+    <button class="mesa" data-mesa="8">8</button>
+
+    <div id="modalReserva">
+    <p id="mesaConfirmada">Mesa seleccionada: Ninguna</p>
+</div>
+</div>
+  </div>
+</form>
+<!-- Button trigger modal -->
+ <div class="text-center mt-4">
+<button type="button" class="btn btn-primary btn-lg" id="botonConfirmarReserva" data-bs-toggle="modal" data-bs-target="#confirmarreserva">
+  Confirmar pago y reserva
+</button>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="confirmarreserva" tabindex="-1" aria-labelledby="modalReservaLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="modalReservaLabel">Confirmación de Reserva</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Volver al formulario"></button>
+      </div>
+      <div class="modal-body">
+        <p><strong>Nombre del comensal:</strong> <span id="nombreConfirmado">No especificado</span></p>
+        <p><strong>Correo electrónico:</strong> <span id="correoConfirmado">No especificado</span></p>
+        <p><strong>Teléfono del comensal:</strong> <span id="telefonoConfirmado">No especificado</span></p>
+        <p><strong>Mesa seleccionada:</strong> <span id="mesaConfirmadaModal">Ninguna</span></p>
+        <p><strong>Comida seleccionada:</strong> <span id="comidaConfirmada">Ninguna</span></p>
+        <p><strong>Monto a pagar:</strong> <span id="precioConfirmado">No establecido</span></p>
+        <p><strong>Fecha de reserva:</strong> <span id="fechaConfirmada">Ninguna</span></p>
+        <p><strong>Restricciones alimenticias:</strong> <span id="restriccionesConfirmadas">Ninguna</span></p>
+        <p><strong>Hora de reserva:</strong> <span id="horaConfirmada">Ninguna</span></p>
+        <p><strong>Tipo de reserva:</strong> <span id="eventoPrivadoConfirmado">Normal</span></p>
+        <div id="advertenciaCosto" class="alert alert-danger mt-2" style="display: none;">
+          ⚠️ ADVERTENCIA: la reserva privada aumenta el costo a pagar.
+        </div>
+        <p><strong>Número de comensales:</strong> <span id="cantidadGrupoConfirmado">Sin especificar</span></p>
+
+        <!-- NUEVA SECCIÓN: DATOS DE TRANSFERENCIA -->
+        <hr class="my-4">
+        <h6 class="mb-2">💳 Datos para realizar la transferencia:</h6>
+        <ul class="list-unstyled ms-2">
+          <li><strong>Banco:</strong> Banesco</li>
+          <li><strong>Cédula:</strong> 31.077.675</li>
+          <li><strong>Teléfono:</strong> 0416-7783231</li>
+        </ul>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" id="botonPago">Confirmar la reserva</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal final de agradecimiento -->
+<div class="modal fade" id="modalGraciasFinal" tabindex="-1" aria-labelledby="modalGraciasFinalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content text-center">
+      <div class="modal-header">
+        <h5 class="modal-title w-100" id="modalGraciasFinalLabel">¡Gracias por reservar!</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body">
+        <h4 class="mb-3">Gracias por reservar en el restaurante Sicilia 🍝</h4>
+        <p>Nuestros sistemas deben confirmar el pago, espere a la notificación del restaurante.</p>
+        <p>¡Su paciencia es importante para nosotros!</p>
+        <p class="text-muted">Contacte a nuestros números de contacto en caso de tardanza con la confirmación.</p>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-success" id="cerrarFinal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.es.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
+<script>
+  function mostrarcuadro() { //con esta funcion, cuando se selecciona la opcion de especificar el grupo de personas con el valor "etc" entonces se presenta un recuadro para añadir a las personas
+      const select = document.getElementById("mesaSelect"); 
+      const campo = document.getElementById("grupo");  
+      if (select.value === "etc") {
+          campo.style.display = "block";
+      } else {
+          campo.style.display = "none";
+      }
+  }
+</script>
+<script> //con esta funcion, se realiza el datepicker que es para colocar de forma practica un calendario
+   $(document).ready(function() {
+    $('#fechaReserva').datepicker({
+      format: 'dd/mm/yyyy',
+      autoclose: true,
+      todayHighlight: true,
+      orientation: "bottom",
+      container: 'body',
+       language: "es",
+        daysOfWeekMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa"],
+        daysOfWeekShort: ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"],
+      templates: {
+        leftArrow: '<i class="bi bi-arrow-left"></i>',
+        rightArrow: '<i class="bi bi-arrow-right"></i>'
+      }
+    });
+  });
+</script>
+<script> //esta funcion, es para la confirmacion de costos extras
+  document.getElementById("confirmarCostoExtra").addEventListener("change", function() {
+    let mensaje = document.getElementById("mensajeAdvertencia");
+    if (this.checked) {
+      mensaje.style.display = "block";
+    } else {
+      mensaje.style.display = "none";
+    }
+  });
+</script>
+<script>
+ comidaSeleccionada = null;
+
+document.querySelectorAll("#menuComidas .btn-success").forEach(button => {
+    button.addEventListener("click", function(event) {
+        event.preventDefault();
+
+        // Limpiar selección anterior
+        document.querySelectorAll("#menuComidas .btn-success").forEach(btn => btn.classList.remove("seleccionado"));
+
+        // Estilizar el botón actual
+        this.classList.add("seleccionado");
+
+        // Obtener horario y nombre del plato
+        const fila = this.closest(".row");
+        const horario = fila.children[0].textContent.trim();
+        const plato = fila.children[1].textContent.trim();
+
+        // Combinar horario y plato
+        comidaSeleccionada = `${plato} (${horario.toLowerCase()})`;
+
+        // Guardar la selección
+        localStorage.setItem("comidaSeleccionada", comidaSeleccionada);
+    });
+});
+
+</script>
+<script>
+document.querySelectorAll(".mesa").forEach(button => {
+    button.addEventListener("click", function(event) {
+        event.preventDefault();
+
+        // Limpiar selección previa
+        document.querySelectorAll(".mesa").forEach(m => m.classList.remove("seleccionada"));
+
+        // Marcar mesa actual
+        this.classList.add("seleccionada");
+
+        // Guardar número en localStorage
+        const numeroMesa = this.getAttribute("data-mesa");
+        localStorage.setItem("mesaSeleccionada", numeroMesa);
+
+        // Actualizar texto en pantalla (fuera del modal)
+        document.getElementById("mesaConfirmada").textContent = `Mesa n°${numeroMesa} seleccionada`;
+    });
+});
+
+</script>
+<script>
+  let comidaSeleccionada = null; // Variable para almacenar el plato seleccionado
+
+document.querySelectorAll("#menuComidas .btn-success").forEach(button => {
+    button.addEventListener("click", function(event) {
+        event.preventDefault(); // Evita que la página se recargue
+
+        // Remueve la selección anterior
+        document.querySelectorAll("#menuComidas .btn-success").forEach(btn => btn.classList.remove("seleccionado"));
+
+        // Marca la nueva elección
+        this.classList.add("seleccionado");
+        comidaSeleccionada = this.parentElement.previousElementSibling.textContent; // Guarda el plato elegido
+
+        // Guarda el plato seleccionado en `localStorage`
+        localStorage.setItem("comidaSeleccionada", comidaSeleccionada);
+    });
+});
+</script>
+
+
+
+
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  // Capturar selección de comida y precio desde los botones del menú
+  document.querySelectorAll('.seleccionar-comida').forEach(boton => {
+    boton.addEventListener('click', () => {
+      localStorage.setItem("comidaSeleccionada", boton.getAttribute('data-comida'));
+      localStorage.setItem("precioSeleccionado", boton.getAttribute('data-precio'));
+    });
+  });
+
+  // Al hacer clic en el botón de Confirmar Reserva
+  document.getElementById("botonConfirmarReserva").addEventListener("click", function () {
+
+    // Teléfono del comensal
+    const telefono = document.getElementById("inputTelefono").value.trim();
+    document.getElementById("telefonoConfirmado").textContent = telefono || "No especificado";
+
+    // Hora de la reserva
+    const hora = document.getElementById("horaReserva").value.trim();
+    document.getElementById("horaConfirmada").textContent = hora || "Ninguna";
+
+    // Datos básicos
+    const correo = document.getElementById("inputEmail4").value.trim();
+    const nombre = document.getElementById("inputAddress").value.trim();
+    document.getElementById("correoConfirmado").textContent = correo || "No especificado";
+    document.getElementById("nombreConfirmado").textContent = nombre || "No especificado";
+
+    // Número de comensales
+    const opcionSeleccionada = document.getElementById("mesaSelect").value;
+    let cantidadFinal;
+    if (opcionSeleccionada === "etc") {
+      const grupo = document.getElementById("cantidadGrupo").value.trim();
+      cantidadFinal = grupo ? `${grupo} personas (grupo grande)` : "Grupo grande no especificado";
+    } else if (opcionSeleccionada >= 1 && opcionSeleccionada <= 8) {
+      cantidadFinal = `Mesa para ${opcionSeleccionada}`;
+    } else {
+      cantidadFinal = "Sin especificar";
+    }
+    document.getElementById("cantidadGrupoConfirmado").textContent = cantidadFinal;
+
+    // Fecha de reserva
+    const fecha = document.getElementById("fechaReserva").value.trim();
+    document.getElementById("fechaConfirmada").textContent = fecha || "Ninguna";
+
+    // Comida y precio seleccionados desde localStorage
+    const comida = localStorage.getItem("comidaSeleccionada");
+    const precio = localStorage.getItem("precioSeleccionado");
+    document.getElementById("comidaConfirmada").textContent = comida || "Ninguna";
+    document.getElementById("precioConfirmado").textContent = precio || "No establecido";
+
+    // Restricciones alimenticias
+    const restricciones = document.getElementById("restricciones").value.trim();
+    document.getElementById("restriccionesConfirmadas").textContent = restricciones || "Ninguna";
+
+    // Tipo de reserva privada
+    const motivo = document.getElementById("motivoPrivado").value.trim();
+    const aceptaCostoExtra = document.getElementById("confirmarCostoExtra").checked;
+    const tipoReserva = (motivo && aceptaCostoExtra) ? "Reserva privada establecida" : "Normal";
+    const mostrarAdvertencia = (motivo && aceptaCostoExtra);
+    document.getElementById("eventoPrivadoConfirmado").textContent = tipoReserva;
+    document.getElementById("advertenciaCosto").style.display = mostrarAdvertencia ? "block" : "none";
+
+    // Mesa seleccionada desde localStorage
+    const mesaElegida = localStorage.getItem("mesaSeleccionada");
+    document.getElementById("mesaConfirmadaModal").textContent = mesaElegida
+      ? `Mesa n°${mesaElegida} seleccionada`
+      : "Ninguna";
+  });
+});
+</script>
+
+
+<script>
+  const botonPago = document.getElementById("botonPago");
+
+  // Validación dinámica: habilitar botón solo si todo el formulario está completo
+  function validarFormularioCompleto() {
+    const nombre = document.getElementById("inputAddress").value.trim();
+    const correo = document.getElementById("inputEmail4").value.trim();
+    const telefono = document.getElementById("inputTelefono").value.trim();
+    const fecha = document.getElementById("fechaReserva").value.trim();
+    const hora = document.getElementById("horaReserva").value.trim();
+    const comensales = document.getElementById("mesaSelect").value;
+    const mesa = localStorage.getItem("mesaSeleccionada");
+    const comida = localStorage.getItem("comidaSeleccionada");
+    const precio = localStorage.getItem("precioSeleccionado");
+
+    const completo = (
+      nombre &&
+      correo &&
+      telefono &&
+      fecha &&
+      hora &&
+      comensales &&
+      comensales !== "Seleccione el número de comensales..." &&
+      mesa &&
+      comida &&
+      precio
+    );
+
+    botonPago.disabled = !completo;
+    return completo;
+  }
+
+  // Escuchar cambios en los campos del formulario
+  document.querySelectorAll("input, select").forEach(el => {
+    el.addEventListener("input", validarFormularioCompleto);
+    el.addEventListener("change", validarFormularioCompleto);
+  });
+
+  // Click en el botón de pago
+  botonPago.addEventListener("click", function () {
+    if (validarFormularioCompleto()) {
+
+      // Construir objeto de datos con protecciones contra undefined
+      const datos = {
+         restaurante_id: 1,
+  nombre: document.getElementById("inputAddress")?.value.trim() || null,
+  email: document.getElementById("inputEmail4")?.value.trim() || null,
+  telefono: document.getElementById("inputTelefono")?.value.trim() || null,
+  fecha: document.getElementById("fechaReserva")?.value
+    ? document.getElementById("fechaReserva").value.trim().split('/').reverse().join('-')
+    : null,
+  hora: document.getElementById("horaReserva")?.value.trim() || null,
+  personas: document.getElementById("mesaSelect")?.value === "etc"
+    ? (document.getElementById("cantidadGrupo")?.value.trim() || null)
+    : (document.getElementById("mesaSelect")?.value || null),
+  comentarios: document.getElementById("restricciones")?.value.trim() || null
+      };
+
+      // Mostrar datos en consola
+      console.log("Datos que se enviarán:", datos);
+
+      // Advertir si hay undefined
+      Object.entries(datos).forEach(([clave, valor]) => {
+        if (valor === undefined) {
+          console.warn(`⚠️ El campo "${clave}" está undefined`);
+        }
+      });
+
+      // Enviar datos al backend
+      fetch('http://localhost:3000/api/reservas', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(datos)
+      })
+      .then(res => res.json())
+      .then(data => console.log("Respuesta del servidor:", data))
+      .catch(err => console.error("Error en fetch:", err));
+
+      // Modal de agradecimiento
+      const modal1 = bootstrap.Modal.getInstance(document.getElementById("confirmarreserva"));
+      if (modal1) modal1.hide();
+
+      setTimeout(() => {
+        const modalGracias = new bootstrap.Modal(document.getElementById("modalGraciasFinal"));
+        modalGracias.show();
+      }, 400);
+    }
+  });
+
+  document.getElementById("cerrarFinal").addEventListener("click", function () {
+    location.reload();
+  });
+</script>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

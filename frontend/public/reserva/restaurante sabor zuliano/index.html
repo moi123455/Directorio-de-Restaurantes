@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SABOR ZULIANO</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&family=Poller+One&display=swap">
+        <!-- En el <head>, antes de tu style.css -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body class="wrap-header-hero">
+
+    <!-- Cabecera -->
+    <div class="fondoheader">
+
+
+        <header class="main-header">
+            <div class="header-wrap">
+
+                <div class="wrap-logo-header">
+                    <a class="logo-header" style="font-size: 30px;" href="/">Sabor Zuliano</a>
+                </div>
+
+                <div class="wrap-nav-header">
+                    <nav class="nav-header">
+                        <input type="checkbox" id="check">
+                        <label for="check" class="checkbtn">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon-menu" width="30" height="30"
+                                viewBox="0 0 24 24">
+                                <path fill="#FFD700" d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z" />
+                            </svg>
+                        </label>
+
+
+                        <ul class="main-menu">
+                            <li class="menu-item"><a href="#inicio">Inicio</a></li>
+                            <li class="menu-item"><a href="#Carta">Carta</a></li>
+                            <li class="menu-item"><a href="#Menu">Menu</a></li>
+                            <li class="menu-item"><a href="#reserva">Reserva</a></li>
+                        </ul>
+                    </nav>
+                </div>
+
+            </div>
+            <li id="loginItem">
+  <button id="btnOpenLogin" class="btn btn-primary">Login / Registro</button>
+</li>
+
+<li id="userItem" style="display:none;">
+  <span id="userName" style="font-weight:bold;"></span>
+  <span id="adminBadge" style="display:none; background:yellow; color:black; padding:2px 6px; border-radius:4px; font-weight:bold; margin-left:5px;">ADMIN</span>
+  <button id="btnLogout" class="btn btn-danger btn-sm" style="margin-left:10px;">Cerrar sesión</button>
+</li>
+
+
+        </header>
+    </div>
+    <!-- Fin de la cabecera -->
+
+    <!-- Contenido principal -->
+    <section id="inicio" class="hero-home-page">
+        <div class="wrap-hero-home-page">
+            <h1>Bienvenidos a Sabor Zuliano</h1>
+            <p>
+                Disfruta de la auténtica cocina Zuliana en nuestro restaurante, donde te transportaremos a
+                los recuerdos de tu infancia con nuestra deliciosa comida.
+            </p>
+            <a href="#reserva" class="cta-main">Hacer una reserva</a>
+        </div>
+    </section>
+
+    <!-- Tarjetas de comida -->
+    <section id="Carta" class="wrap section">
+        <div class="wrap-title-section">
+            <h2>Tarjetas de Comida Para Eventos o Fuera de Nuestro Menu</h2>
+        </div>
+        <div class="column-4 columns">
+
+            <div style="background:url(img/Patacon\ Especial.jpg) center; background-size: cover;" class="tarjeta-rest">
+                <div class="wrap-text_tarjeta-rest">
+                    <h3>Patacón Especial</h3>
+                    <p>Si hay un plato que representa al Zulia en el mapa gastronómico de Venezuela, ese es el patacón,
+                        un manjar de la comida callejera zuliana, que es casi un ícono regional.</p>
+                    <div class="cta-wrap_tarjeta-rest">
+                        <div class="precio_tarjeta-rest"><span>12$</span></div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div style="background:url(img/chivo-guisado-con-coco.jpg) center; background-size: cover;"
+                class="tarjeta-rest">
+                <div class="wrap-text_tarjeta-rest">
+                    <h3>Chivo guisado en Coco </h3>
+                    <p>Este plato es un reflejo de la mezcla de culturas que han influido en la gastronomía zuliana,
+                        especialmente las indígenas y africanas.
+                        El chivo en coco suele ser un plato reservado para ocasiones especiales o festividades, y se
+                        acompaña con arroz, yuca sancochada o plátano maduro.</p>
+                    <div class="cta-wrap_tarjeta-rest">
+                        <div class="precio_tarjeta-rest"><span>12$</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="background:url(img/Mandocas.jpg) center; background-size: cover;" class="tarjeta-rest">
+                <div class="wrap-text_tarjeta-rest">
+                    <h3>Mandocas Especiales</h3>
+                    <p>La mandoca es uno de esos platos típicos que te recuerdan que, en el Zulia, los sabores se
+                        disfrutan mejor cuando se mezclan.
+                        Esta receta se hace con plátano maduro, papelón y harina de maíz, </p>
+                    <div class="cta-wrap_tarjeta-rest">
+                        <div class="precio_tarjeta-rest"><span>10$</span></div>
+                    </div>
+                </div>
+            </div>
+            <div style="background:url(img/PESCADOFRITO3.jpg) center; background-size: cover;" class="tarjeta-rest">
+                <div class="wrap-text_tarjeta-rest">
+                    <h3>Pescado Frito</h3>
+                    <p>Deliciosos filetes de pescado fritos a la criolla, servidos con una fresca ensalada de mango,
+                        cebolla morada y cilantro, y acompañados de tostones y una salsa de ajo y limón.</p>
+                    <div class="cta-wrap_tarjeta-rest">
+                        <div class="precio_tarjeta-rest"><span>15$</span></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Menu Restaurante -->
+    <section id="Menu" class="wrap section">
+        <div class="wrap-title-section">
+            <h2>Menú de Restaurante</h2>
+        </div>
+        <div class="column-3 columns">
+
+            <div style="background: url(img/Menu.jpg) center; background-size: cover;" class="menu-restaurante">
+                <h3>Menú de Mediodía</h3>
+                <hr>
+                <h4>Entradas</h4>
+                <div class="wrap-entradas">
+                    <p>Tequeños</p>
+                    <p>Arepas de Queso</p>
+                    <p>Patacones con Guacamole</p>
+                    <p>Empanadas de Carne</p>
+                    <p>Cachapas</p>
+                    <p>Tostones con Salsa Guasacaca</p>
+                </div>
+                <h4>Platos Principales</h4>
+                <div class="wrap-platos">
+                    <div class="tarjeta-rest">
+                        <div class="wrap-text_tarjeta-rest">
+                            <h3>Pabellón Criollo</h3>
+                            <p>Plato típico venezolano con carne mechada, caraotas negras, arroz y plátano maduro.</p>
+                            <div class="cta-wrap_tarjeta-rest">
+                                <div class="precio_tarjeta-rest"><span>12$</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tarjeta-rest">
+                        <div class="wrap-text_tarjeta-rest">
+                            <h3>Asado Negro</h3>
+                            <p>Delicioso plato de carne asada en salsa negra, acompañado de arroz blanco, caraotas
+                                negras y plátano maduro.</p>
+                            <div class="cta-wrap_tarjeta-rest">
+                                <div class="precio_tarjeta-rest"><span>13$</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tarjeta-rest">
+                        <div class="wrap-text_tarjeta-rest">
+                            <h3>Cachapa con Queso</h3>
+                            <p>Tradicional cachapa venezolana rellena de queso blanco y servida con mantequilla.</p>
+                            <div class="cta-wrap_tarjeta-rest">
+                                <div class="precio_tarjeta-rest"><span>10$</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tarjeta-rest">
+                        <div class="wrap-text_tarjeta-rest">
+                            <h3>Pollo en Cazuela</h3>
+                            <p>Pollo guisado en una deliciosa salsa de tomate, pimentón y especias, acompañado de arroz
+                                y ensalada.</p>
+                            <div class="cta-wrap_tarjeta-rest">
+                                <div class="precio_tarjeta-rest"><span>11$</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h4>Postres</h4>
+                <div class="wrap-postres">
+                    <p>Suspiro de Maracuyá</p>
+                    <p>Volteado de Piña</p>
+                    <p>Dulce de Lechosa</p>
+                    <p>Torta Quesillo</p>
+                </div>
+                <p class="precio-menu">Precio: <span>20$</span></p>
+            </div>
+
+            <div style="background: url(img/Menu.jpg) center; background-size: cover;" class="menu-restaurante">
+                <h3>Menú de Noche</h3>
+                <hr>
+                <h4>Entradas</h4>
+                <div class="wrap-entradas">
+                    <p>Tequeños con salsa guacamole</p>
+                    <p>Arepas de Queso</p>
+                    <p>Arepitas de jojoto con queso</p>
+                    <p>Empanadas de Carne</p>
+                    <p>Cachapas</p>
+                    <p>Tostones con Salsa Guasacaca</p>
+                </div>
+                <h4>Platos Principales</h4>
+                <div class="wrap-platos">
+                    <div class="tarjeta-rest">
+                        <div class="wrap-text_tarjeta-rest">
+                            <h3>Cachapa con Queso</h3>
+                            <p>Tradicional cachapa, una especie de panqueque de maíz, rellena de queso blanco y servida
+                                con mantequilla.</p>
+                            <div class="cta-wrap_tarjeta-rest">
+                                <div class="precio_tarjeta-rest"><span>12$</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tarjeta-rest">
+                        <div class="wrap-text_tarjeta-rest">
+                            <h3>Reina Pepiada</h3>
+                            <p> Arepa venezolana rellena de una deliciosa mezcla de pollo desmenuzado, mayonesa y
+                                aguacate.</p>
+                            <div class="cta-wrap_tarjeta-rest">
+                                <div class="precio_tarjeta-rest"><span>13$</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tarjeta-rest">
+                        <div class="wrap-text_tarjeta-rest">
+                            <h3>Pastelitos de Pollo</h3>
+                            <p>Pequeños pasteles de hojaldre rellenos de un sabroso guiso de pollo, cebolla y especias.
+                            </p>
+                            <div class="cta-wrap_tarjeta-rest">
+                                <div class="precio_tarjeta-rest"><span>10$</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tarjeta-rest">
+                        <div class="wrap-text_tarjeta-rest">
+                            <h3>Hallacas</h3>
+                            <p>Plato típico navideño, Pero si gustas degustar de una hallaca fuera de Navidad te la
+                                preparamos .</p>
+                            <div class="cta-wrap_tarjeta-rest">
+                                <div class="precio_tarjeta-rest"><span>11$</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h4>Postres</h4>
+                <div class="wrap-postres">
+                    <p>Quesillo</p>
+                    <p>Torta Negra</p>
+                    <p>Dulce de Lechosa</p>
+                    <p>Torta Quesillo</p>
+                </div>
+                <p class="precio-menu">Precio: <span>20$</span></p>
+            </div>
+
+            <div style="background: url(img/Menu.jpg) center; background-size: cover;" class="menu-restaurante">
+                <h3>Menú de Fiesta o Eventos</h3>
+                <hr>
+                <h4>Entradas</h4>
+                <div class="wrap-entradas">
+                    <p>Tequeños</p>
+                    <p>Arepas de Queso</p>
+                    <p>Patacones con Guacamole</p>
+                    <p>Empanadas de Carne</p>
+                    <p>Cachapas</p>
+                    <p>Tostones con Salsa Guasacaca</p>
+                </div>
+                <h4>Platos Principales</h4>
+                <div class="wrap-platos">
+                    <div class="tarjeta-rest">
+                        <div class="wrap-text_tarjeta-rest">
+                            <h3>Pasticho</h3>
+                            <p> Tradicional pastel de capas de pasta, carne molida, queso y bechamel, un clásico de la
+                                cocina venezolana.</p>
+                            <div class="cta-wrap_tarjeta-rest">
+                                <div class="precio_tarjeta-rest"><span>12$</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tarjeta-rest">
+                        <div class="wrap-text_tarjeta-rest">
+                            <h3>Pabellón</h3>
+                            <p>Arroz blanco acompañado de un delicioso guiso de caraotas negras y carne desmechada.</p>
+                            <div class="cta-wrap_tarjeta-rest">
+                                <div class="precio_tarjeta-rest"><span>13$</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tarjeta-rest">
+                        <div class="wrap-text_tarjeta-rest">
+                            <h3>Pasta con Salsa de Carne Molida</h3>
+                            <p>Pasta corta servida con una sabrosa salsa de tomate y carne molida.</p>
+                            <div class="cta-wrap_tarjeta-rest">
+                                <div class="precio_tarjeta-rest"><span>10$</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tarjeta-rest">
+                        <div class="wrap-text_tarjeta-rest">
+                            <h3>Agusto Del cliente</h3>
+                            <p>Si desea hacer un menu para su evento o Fiesta contactar con nosotros el dia de la
+                                reserva</p>
+                            <div class="cta-wrap_tarjeta-rest">
+                                <div class="precio_tarjeta-rest"><span>11$</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h4>Postres</h4>
+                <div class="wrap-postres">
+                    <p>Quesillo con Coulis de Frutos Rojos</p>
+                    <p>Volteado de Piña</p>
+                    <p>Dulce de Lechosa</p>
+                    <p>Torta Quesillo</p>
+                </div>
+                <p class="precio-menu">Precio: <span>20$</span></p>
+            </div>
+
+
+        </div>
+    </section>
+    <section id="reserva" class="wrap section">
+    <h2>Reserva tu Mesa</h2>
+    <div class="wrap-title-section">
+        <p class="texto-blanco">Regístrate y reserva una mesa. Tenemos 30 mesas disponibles cada día.</p>
+    </div>
+
+    <form class="form-reserva">
+        <label for="nombre">Nombre completo:</label>
+        <input type="text" id="nombre" name="nombre" placeholder="Daniel Sandoval" required
+            pattern="[A-Za-zÁÉÍÓÚÑáéíóúñ ]{2,}" title="Ingresa solo letras y espacios.">
+
+        <label for="correo">Correo electrónico:</label>
+        <input type="email" id="correo" name="correo" placeholder="ejemplo@correo.com" required
+            title="Ingresa un correo electrónico válido.">
+
+        <label for="telefono">Número de teléfono:</label>
+        <input type="tel" id="telefono" name="telefono" placeholder="04246122926" required pattern="[0-9\s\-]+"
+            title="Ingresa solo números, espacios o guiones.">
+
+        <label for="personas">Cantidad de personas:</label>
+        <select id="personas" name="personas" required>
+            <option value="">Selecciona</option>
+            <option value="1">1 persona</option>
+            <option value="2">2 personas</option>
+            <option value="3">3 personas</option>
+            <option value="4">4 personas</option>
+            <option value="5">5 personas</option>
+            <option value="6">6 o más</option>
+        </select>
+
+        <label for="fecha">Fecha de la reserva:</label>
+        <input type="date" id="fecha" name="fecha" required>
+
+        <select id="reservation-time" name="hora" required>
+            <option disabled selected>Selecciona hora</option>
+            <option>10:00 AM</option>
+            <option>11:00 AM</option>
+            <option>12:00 PM</option>
+            <option>01:00 PM</option>
+            <option>02:00 PM</option>
+            <option>03:00 PM</option>
+            <option>04:00 PM</option>
+            <option>05:00 PM</option>
+            <option>06:00 PM</option>
+            <option>07:00 PM</option>
+            <option>08:00 PM</option>
+            <option>09:00 PM</option>
+            <option>10:00 PM</option>
+        </select>
+
+        <label for="detalle">Detalles adicionales (alergias, requerimientos):</label>
+        <textarea id="detalle" name="detalle" rows="4" placeholder="Ej: Soy alérgico al maní..."></textarea>
+
+        <div id="disponibilidad-mesas">
+            <p><strong>Mesas disponibles:</strong> <span id="mesas-disponibles">30</span></p>
+        </div>
+
+        <button type="submit" class="cta-main">Enviar Reserva</button>
+    </form>
+</section>
+
+
+    </main>
+    <div>
+
+
+        <footer class="footer">
+            <div class="wrap-footer">
+                <div class="text-element-footer element-footer">
+                    <h3>Políticas del Restaurante</h3>
+                    <p> 1.Horario de Atención: El restaurante atiende de martes a Domingo, de 10:00 am a 10:00 pm. Los
+                        lunes
+                        permanecerá cerrado.
+
+                        2.Forma de Pago: Se aceptan pagos en efectivo, tarjetas de crédito y débito. No se aceptan
+                        cheques.
+
+                        3.Política de Cancelación: Las cancelaciones de reservaciones deben realizarse con al menos 48
+                        horas
+                        de anticipación. En caso de cancelaciones tardías, se aplicará un cargo del 50% del valor total.
+
+                        5.Política de Alergias e Intolerancias: Por favor, informe a nuestro personal sobre cualquier
+                        alergia
+                    </p>
+                </div>
+                <div class="text-element-footer element-footer">
+                    <h5>Dirección</h5>
+                    <ul>
+                        <li>Calle, 69</li>
+                        <li>Movil: (+58) 424-612 2926</li>
+                        <li>Fax: (+00) 900 00 00 00</li>
+                    </ul>
+                </div>
+                <div class="text-element-footer element-footer">
+                    <h5>Más información</h5>
+                    <ul>
+                        <li><a href="/">Inicio</a></li>
+                        <li><a href="/">Nosotros</a></li>
+                        <li><a href="/">Carta</a></li>
+                        <li><a href="/">Blog</a></li>
+                        <li><a href="/">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="rrss-element-footer element-footer">
+                    <h5>Redes Sociales</h5>
+                    <ul>
+                        <li><a href="/">
+                                <img src="data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgNTEyIDUxMiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJtNTEyIDc1djM2MmMwIDQxLjM5ODQzOC0zMy42MDE1NjIgNzUtNzUgNzVoLTEyMWwtMzAtMzBoLTMwbC0zMCAzMGgtMTUxYy00MS4zOTg0MzggMC03NS0zMy42MDE1NjItNzUtNzV2LTM2MmMwLTQxLjM5ODQzOCAzMy42MDE1NjItNzUgNzUtNzVoMzYyYzQxLjM5ODQzOCAwIDc1IDMzLjYwMTU2MiA3NSA3NXptMCAwIiBmaWxsPSIjNzk4NGViIi8+PHBhdGggZD0ibTUxMiA3NXYzNjJjMCA0MS4zOTg0MzgtMzMuNjAxNTYyIDc1LTc1IDc1aC0xMjFsLTMwLTMwaC0xNXYtNDgyaDE2NmM0MS4zOTg0MzggMCA3NSAzMy42MDE1NjIgNzUgNzV6bTAgMCIgZmlsbD0iIzQ2NjFkMSIvPjxwYXRoIGQ9Im0zMTYgMTgwdjYwaDkwbC0xNSA5MGgtNzV2MTgyaC05MHYtMTgyaC02MHYtOTBoNjB2LTYwYzAtMzMuMzAwNzgxIDE4LjMwMDc4MS02Mi40MDIzNDQgNDUtNzggMTMuMTk5MjE5LTcuNSAyOC44MDA3ODEtMTIgNDUtMTJoOTB2OTB6bTAgMCIgZmlsbD0iI2VjZWNmMSIvPjxwYXRoIGQ9Im0zMTYgMTgwdjYwaDkwbC0xNSA5MGgtNzV2MTgyaC00NXYtNDEwYzEzLjE5OTIxOS03LjUgMjguODAwNzgxLTEyIDQ1LTEyaDkwdjkwem0wIDAiIGZpbGw9IiNlMmUyZTciLz48L3N2Zz4="
+                                    alt="icono redes sociales">
+                            </a></li>
+                        <li><a href="">
+                                <img src="data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgNTEyIDUxMiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJtMjU2IDBjLTE0MC42OTkyMTkgMC0yNTYgMTE1LjMwMDc4MS0yNTYgMjU2IDAgNDYuNSAxMi41OTc2NTYgOTEuNSAzNi4zMDA3ODEgMTMxLjEwMTU2MmwtMzYuMzAwNzgxIDEyNC44OTg0MzggMTI0Ljg5ODQzOC0zNi4zMDA3ODFjMzkuNjAxNTYyIDIzLjY5OTIxOSA4NC42MDE1NjIgMzYuMzAwNzgxIDEzMS4xMDE1NjIgMzYuMzAwNzgxIDE0MC42OTkyMTkgMCAyNTYtMTE1LjMwMDc4MSAyNTYtMjU2cy0xMTUuMzAwNzgxLTI1Ni0yNTYtMjU2em0wIDAiIGZpbGw9IiMwMGRkN2IiLz48cGF0aCBkPSJtNTEyIDI1NmMwIDE0MC42OTkyMTktMTE1LjMwMDc4MSAyNTYtMjU2IDI1NnYtNTEyYzE0MC42OTkyMTkgMCAyNTYgMTE1LjMwMDc4MSAyNTYgMjU2em0wIDAiIGZpbGw9IiMwMGNjNzEiLz48cGF0aCBkPSJtNDE3LjE5OTIxOSAzNjQuMzAwNzgxLTEyIDExLjY5OTIxOWMtMTYuODAwNzgxIDE2LjgwMDc4MS01NS44MDA3ODEgMTUuNTk3NjU2LTgwLjY5OTIxOSAxMC44MDA3ODEtMjIuMTk5MjE5LTQuMTk5MjE5LTQ2LTE0LjEwMTU2Mi02OC41LTI3LjkwMjM0My02MS4xOTkyMTktMzcuMTk5MjE5LTExNi42OTkyMTktMTAzLjE5OTIxOS0xMzAuMTk5MjE5LTE2Mi41OTc2NTctOS4zMDA3ODEtNDAuMjAzMTI1LTQuMTk5MjE5LTc1IDktODguNWwxMi0xMmM2LjYwMTU2My02LjMwMDc4MSAxNy4wOTc2NTctNi4zMDA3ODEgMjMuNjk5MjE5IDBsNDcuNjk5MjE5IDQ3LjY5OTIxOWMzLjMwMDc4MSAzLjMwMDc4MSA1LjEwMTU2MiA3LjUgNS4xMDE1NjIgMTJzLTEuODAwNzgxIDguNjk5MjE5LTUuMTAxNTYyIDEybC0xMiAxMS42OTkyMTljLTEyLjg5ODQzOCAxMy4xOTkyMTktMTIuODk4NDM4IDM0LjUgMCA0Ny42OTkyMTlsNDkuODAwNzgxIDQ4LjkwMjM0MyAyOS4wOTc2NTYgMjguODAwNzgxYzEzLjIwMzEyNSAxMy4xOTkyMTkgMzUuNTAzOTA2IDEzLjE5OTIxOSA0OC43MDMxMjUgMGwxMS42OTkyMTktMTIuMDAzOTA2YzYuMzAwNzgxLTYgMTcuNjk5MjE5LTYgMjQgMGw0Ny42OTkyMTkgNDcuNzAzMTI1YzYuMzAwNzgxIDYuNTk3NjU3IDYuNjAxNTYyIDE3LjA5NzY1NyAwIDI0em0wIDAiIGZpbGw9IiNlY2VjZjEiLz48cGF0aCBkPSJtNDE3LjE5OTIxOSAzNjQuMzAwNzgxLTEyIDExLjY5OTIxOWMtMTYuODAwNzgxIDE2LjgwMDc4MS01NS44MDA3ODEgMTUuNTk3NjU2LTgwLjY5OTIxOSAxMC44MDA3ODEtMjIuMTk5MjE5LTQuMTk5MjE5LTQ2LTE0LjEwMTU2Mi02OC41LTI3LjkwMjM0M3YtODMuMDk3NjU3bDI5LjA5NzY1NiAyOC44MDA3ODFjMTMuMjAzMTI1IDEzLjE5OTIxOSAzNS41MDM5MDYgMTMuMTk5MjE5IDQ4LjcwMzEyNSAwbDExLjY5OTIxOS0xMi4wMDM5MDZjNi4zMDA3ODEtNiAxNy42OTkyMTktNiAyNCAwbDQ3LjY5OTIxOSA0Ny43MDMxMjVjNi4zMDA3ODEgNi41OTc2NTcgNi42MDE1NjIgMTcuMDk3NjU3IDAgMjR6bTAgMCIgZmlsbD0iI2UyZTJlNyIvPjwvc3ZnPg=="
+                                    alt="icono redes sociales">
+                            </a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-creds">
+                <div class="copy-creds">
+                    <p>©2025 · Todos los derechos reservados.</p>
+                </div>
+                <div class="legal-creds">
+                    <ul>
+                        <li><a href="">Política de Privacidad</a></li>
+                        <li><a href="">Plítica de Cookies</a></li>
+                        <li><a href="">Aviso Legal</a></li>
+                    </ul>
+                </div>
+            </div>
+        </footer>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const formReserva = document.querySelector(".form-reserva");
+
+  formReserva.addEventListener("submit", function (e) {
+    e.preventDefault(); // Evita recarga
+
+    // Construir objeto con nombres correctos para el backend
+    const datos = {
+      restaurante_id: 2, // ID fijo o dinámico según corresponda
+      nombre: document.getElementById("nombre")?.value.trim() || null,
+      email: document.getElementById("correo")?.value.trim() || null,
+      telefono: document.getElementById("telefono")?.value.trim() || null,
+      fecha: document.getElementById("fecha")?.value || null, // input type="date" ya da yyyy-mm-dd
+      hora: document.getElementById("reservation-time")?.value || null,
+      personas: document.getElementById("personas")?.value || null,
+      comentarios: document.getElementById("detalle")?.value.trim() || null
+    };
+
+    // Mostrar en consola para depuración
+    console.log("Datos que se enviarán:", datos);
+
+    // Advertir si hay undefined
+    Object.entries(datos).forEach(([clave, valor]) => {
+      if (valor === undefined) {
+        console.warn(`⚠️ El campo "${clave}" está undefined`);
+      }
+    });
+
+    // Enviar al backend
+    fetch("http://localhost:3000/api/reservas", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(datos)
+    })
+    .then(res => res.json())
+    .then(data => {
+      console.log("Respuesta del servidor:", data);
+      if (data.message) {
+        alert("✅ Reserva creada con éxito");
+        formReserva.reset();
+      } else {
+        alert("⚠️ Hubo un problema al crear la reserva");
+      }
+    })
+    .catch(err => {
+      console.error("Error en fetch:", err);
+      alert("❌ Error de conexión con el servidor");
+    });
+  });
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const spanMesas = document.getElementById("mesas-disponibles");
+
+  // 1️⃣ Al cargar, leer de localStorage o iniciar en 30
+  let mesasDisponibles = parseInt(localStorage.getItem("mesasDisponibles") || "30", 10);
+  spanMesas.textContent = mesasDisponibles;
+
+  // 2️⃣ Capturar envío del formulario
+  const formReserva = document.querySelector(".form-reserva");
+  formReserva.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    // Aquí iría tu lógica de envío de datos al backend
+    // fetch(...).then(...)
+
+    // Simulación de éxito (reemplaza esto por tu .then del fetch)
+    const reservaExitosa = true;
+
+    if (reservaExitosa) {
+      // Restar 1 pero no bajar de 0
+      mesasDisponibles = Math.max(mesasDisponibles - 1, 0);
+
+      // Guardar en localStorage
+      localStorage.setItem("mesasDisponibles", mesasDisponibles);
+
+      // Actualizar en pantalla
+      spanMesas.textContent = mesasDisponibles;
+
+      alert("✅ Reserva creada con éxito");
+      formReserva.reset();
+    }
+  });
+});
+</script>
+
+<!-- Bootstrap -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Contenedor para modales -->
+<div id="modals-container"></div>
+
+<script>
+fetch('/partials/auth-modals.html')
+  .then(res => res.text())
+  .then(html => {
+    // Insertar modales en el DOM
+    document.getElementById('modals-container').innerHTML = html;
+
+    // Variables y funciones
+    let currentRole = null;
+
+    // Enganchar eventos de modales
+    document.getElementById('btnOpenLogin').addEventListener('click', () => {
+      new bootstrap.Modal(document.getElementById('modalRol')).show();
+    });
+
+    document.getElementById('btnUsuario').addEventListener('click', () => {
+      currentRole = 'usuario';
+      bootstrap.Modal.getInstance(document.getElementById('modalRol')).hide();
+      new bootstrap.Modal(document.getElementById('modalAccion')).show();
+    });
+
+    document.getElementById('btnAdmin').addEventListener('click', () => {
+      currentRole = 'admin';
+      bootstrap.Modal.getInstance(document.getElementById('modalRol')).hide();
+      new bootstrap.Modal(document.getElementById('modalAccion')).show();
+    });
+
+    document.getElementById('btnGoLogin').addEventListener('click', () => {
+      bootstrap.Modal.getInstance(document.getElementById('modalAccion')).hide();
+      new bootstrap.Modal(document.getElementById('modalLogin')).show();
+    });
+
+    document.getElementById('btnGoRegistro').addEventListener('click', () => {
+      bootstrap.Modal.getInstance(document.getElementById('modalAccion')).hide();
+      new bootstrap.Modal(document.getElementById('modalRegistro')).show();
+    });
+
+    // LOGIN
+    document.getElementById('formLogin').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const emailOrUser = document.getElementById('loginEmail').value;
+      const password = document.getElementById('loginPassword').value;
+
+      const url = currentRole === 'admin' ? '/api/admin/login' : '/api/usuarios/login';
+      const body = currentRole === 'admin'
+        ? { username: emailOrUser, password }
+        : { email: emailOrUser, password };
+
+      try {
+        const res = await fetch(url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(body)
+        });
+        const data = await res.json();
+        if (res.ok) {
+          bootstrap.Modal.getInstance(document.getElementById('modalLogin')).hide();
+          if (currentRole === 'admin') {
+            window.open('/phpmyadmin', '_blank');
+          }
+          location.reload();
+        } else {
+          alert(data.error || 'Error en la autenticación');
+        }
+      } catch (err) {
+        console.error(err);
+        alert('Error de conexión');
+      }
+    });
+
+    // REGISTRO
+    document.getElementById('formRegistro').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const nombre = document.getElementById('regNombre').value;
+      const email = document.getElementById('regEmail').value;
+      const password = document.getElementById('regPassword').value;
+
+      const url = currentRole === 'admin' ? '/api/admin/register' : '/api/usuarios/register';
+      const body = currentRole === 'admin'
+        ? { username: prompt("Introduce un nombre de usuario:"), email, password, nombre_completo: nombre }
+        : { nombre, email, password };
+
+      try {
+        const res = await fetch(url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(body)
+        });
+        const data = await res.json();
+        if (res.ok) {
+          bootstrap.Modal.getInstance(document.getElementById('modalRegistro')).hide();
+          location.reload();
+        } else {
+          alert(data.error || 'Error en el registro');
+        }
+      } catch (err) {
+        console.error(err);
+        alert('Error de conexión');
+      }
+    });
+
+    // Cargar scripts adicionales
+    const script1 = document.createElement('script');
+    script1.src = '/js/session-check.js';
+    document.body.appendChild(script1);
+
+    const script2 = document.createElement('script');
+    script2.src = '/js/auth-modals.js';
+    document.body.appendChild(script2);
+  })
+  .catch(err => console.error('Error cargando modales:', err));
+</script>
+
+
+</body>
+</html>

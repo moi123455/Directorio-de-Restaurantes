@@ -1,0 +1,231 @@
+.fondo {
+    background-image: url('img/header3.jpg');
+     background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 100%;
+    height: auto;
+    min-height: 15vh;
+    color: white !important;
+    box-shadow: 100px 100px 120px rgba(0, 0, 0, 0.3);
+}
+.navbar .btn {
+    margin-right: 10px;
+    color: rgb(255, 243, 243) !important;
+    background-color: #bb8d55;
+    border-color: #bb8d55;
+    cursor: pointer;
+    border-radius: 100px;
+}
+.navbar .btn:hover {
+    background-color: #A67B5B;
+    color: white;
+    transition: 0.3s ease-in-out;
+}
+.navbar {
+    background: transparent !important;
+    box-shadow: none;
+    color: white !important;
+}
+/*Ajusta el tamaño del calendario*/
+.datepicker-dropdown {
+    font-size: 18px;
+    min-width: 2px;
+}
+
+/*Espacia los números del calendario*/
+.datepicker table {
+    width: 30%;
+     width: auto !important;
+    margin: auto;
+    table-layout: fixed;
+}
+
+/*Ajusta el tamaño de los días*/
+.datepicker-days td, .datepicker-days th {
+    padding: 10px;
+    text-align: center;
+}
+/* Espaciado para los meses*/
+.datepicker-months span, 
+.datepicker-years span {
+    display: inline-block;
+    width: 60px;
+    padding: 10px;
+    text-align: center;
+    margin: 5px;
+}
+.datepicker-months td, .datepicker-years td {
+    padding: 12px !important;
+}
+.row {
+    margin-bottom: 5px;
+}
+
+#menuboton {
+     margin-right: 10px;
+    color: rgb(255, 243, 243) !important;
+    background-color: #bb8d55;
+    border-color: #bb8d55;
+    cursor: pointer;
+    border-radius: 100px;
+    width: 150px;
+    padding: 10px;
+    font-size: 16px;
+    text-align: center;
+    
+}
+#menuboton:hover {
+    background-color: #A67B5B;
+    color: white;
+    transition: 0.3s ease-in-out;
+}
+#menuComidas {
+   text-align: left !important;
+    width: auto;
+}
+.seleccionado {
+    background-color: #ff9800 !important; /* Cambia el color del botón cuando se elige */
+    transform: scale(1.1); /* Hace que el botón seleccionado crezca ligeramente */
+}
+
+#advertencia {
+     margin-right: 10px;
+    color: rgb(255, 243, 243) !important;
+    background-color: #bb823b;
+    border-color: #4e3a1f;
+    cursor: pointer;
+    border-radius: 100px;
+    width: 250px;
+    padding: 10px;
+    font-size: 16px;
+    text-align: center;
+    
+}
+#mapaRestaurante {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9; /* Mantiene la proporción del mapa */
+    background-image: url('img/reserva.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: relative;
+    overflow: hidden; /* Evita que los botones se desborden */
+}
+
+
+.mesa {
+    position: absolute;
+    width: 7%; /* Tamaño dinámico según el contenedor */
+    height: 13%;
+    border-radius: 60%;
+    background-color: #b36f22;
+    color: white;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transform-origin: center;
+    background-image: url('img/mesa.jpg');
+    border: 4px solid rgba(0, 0, 0, 0.2);
+    outline: none;
+    box-shadow: 2px 20px 6px rgba(0, 0, 0, 0.3);
+    transition: filter 0.2s ease;
+}
+
+.mesa:active {
+  filter: brightness(65%);
+}
+.modal-header {
+  background-color: #4b2e1e;
+  color: #fff;
+  border-bottom: 2px solid #d3b697;
+}
+
+.modal-header .modal-title {
+  font-weight: 600;
+  font-family: 'Georgia', serif;
+  letter-spacing: 0.5px;
+}
+#botonPago {
+  background-color: #165c4b; /* Verde marino profundo */
+  border-color: #165c4b;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+#botonPago:hover {
+  background-color: #12493c; /* Versión más oscura al pasar el mouse */
+  border-color: #12493c;
+}
+#cerrarFinal {
+  background-color: #4b2e1e; /* Marrón oscuro como el header */
+  border-color: #4b2e1e;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+#cerrarFinal:hover {
+  background-color: #3e2518;
+  border-color: #3e2518;
+}
+#botonConfirmarReserva {
+  background-color: #165c4b; /* Verde marino profundo */
+  border-color: #165c4b;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+#botonConfirmarReserva:hover {
+  background-color: #12493c; /* Versión más oscura al pasar el mouse */
+  border-color: #12493c;
+}
+#comida {
+  background-color: #b36f22; /* Marrón oscuro como el header */
+  border-color: #4b2e1e;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+#comida:hover {
+  background-color: #b36f22;
+  border-color: #3e2518;
+}
+
+
+
+/* Ajustamos posiciones RELATIVAS para que escalen con el mapa */
+.mesa:nth-child(1) { top: 32%; left: 18%; }
+.mesa:nth-child(2) { top: 22%; left: 34%; }
+.mesa:nth-child(3) { top: 49%; left: 31%; }
+.mesa:nth-child(4) { top: 49%; left: 61%; }
+.mesa:nth-child(5) { top: 22%; left: 57%; }
+.mesa:nth-child(6) { top: 35%; left: 46%; }
+.mesa:nth-child(7) { top: 32%; left: 73%; }
+.mesa:nth-child(8) { top: 10%; left: 46%; }
+
+/* Ajustamos el tamaño de los botones según el mapa */
+@media (max-width: 800px) {
+    .mesa {
+        width: 5vw;
+        height: 10vh;
+        transform: scale(0.8);
+    }
+}
+
+@media (min-width: 1200px) {
+    .mesa {
+        width: 4w;
+        height: 12vh;
+        transform: scale(1.2);
+    }
+}
+.mesa.seleccionada {
+    background-color: #ffc369; /* Cambia a naranja al ser seleccionada */
+    transform: scale(1.1); /* Hace que el botón crezca un poco */
+}
+
+
+

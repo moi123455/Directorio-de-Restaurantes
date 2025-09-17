@@ -1,0 +1,85 @@
+<!-- Modal 1: Selección de rol -->
+<div class="modal fade" id="modalRol" tabindex="-1" aria-labelledby="modalRolLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title w-100 text-center" id="modalRolLabel">¿Eres Usuario o Administrador?</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body text-center">
+        <button class="btn btn-primary m-2" id="btnUsuario">Usuario</button>
+        <button class="btn btn-warning m-2" id="btnAdmin">Administrador</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal 2: Selección de acción -->
+<div class="modal fade" id="modalAccion" tabindex="-1" aria-labelledby="modalAccionLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title w-100 text-center" id="modalAccionLabel">¿Qué deseas hacer?</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body text-center">
+        <button class="btn btn-success m-2" id="btnGoLogin">Iniciar Sesión</button>
+        <button class="btn btn-info m-2" id="btnGoRegistro">Registrarme</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal 3: Formulario de login -->
+<div class="modal fade" id="modalLogin" tabindex="-1" aria-labelledby="modalLoginLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title w-100 text-center" id="modalLoginLabel">Iniciar Sesión</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form id="formLogin">
+          <div class="mb-3">
+            <label for="loginEmail" class="form-label">Email o Usuario</label>
+            <input type="text" class="form-control" id="loginEmail" required>
+          </div>
+          <div class="mb-3">
+            <label for="loginPassword" class="form-label">Contraseña</label>
+            <input type="password" class="form-control" id="loginPassword" required>
+          </div>
+          <button type="submit" class="btn btn-primary w-100">Entrar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal 4: Formulario de registro -->
+<div class="modal fade" id="modalRegistro" tabindex="-1" aria-labelledby="modalRegistroLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title w-100 text-center" id="modalRegistroLabel">Registro</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form id="formRegistro">
+          <div class="mb-3">
+            <label for="regNombre" class="form-label">Nombre completo</label>
+            <input type="text" class="form-control" id="regNombre" required>
+          </div>
+          <div class="mb-3">
+            <label for="regEmail" class="form-label">Correo electrónico</label>
+            <input type="email" class="form-control" id="regEmail" required>
+          </div>
+          <div class="mb-3">
+            <label for="regPassword" class="form-label">Contraseña</label>
+            <input type="password" class="form-control" id="regPassword" required>
+          </div>
+          <button type="submit" class="btn btn-success w-100">Registrarme</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

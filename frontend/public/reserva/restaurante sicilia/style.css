@@ -1,0 +1,150 @@
+body {
+  max-height: 700px; /* Si realmente lo necesitas */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.btn-disabled {
+    background-color: #bb8d55 !important;
+    border-color: #bb8d55 !important;
+    cursor: not-allowed !important;
+    opacity: 0.7;
+}
+
+
+.list-group-item {
+    display: inline-block;
+    width: auto;
+    padding: 8px 5px;
+    border: 1px solid #ccc;
+    background-color: #f8f8f8;
+}
+.fondo {
+    background-image: url('img/madera3.jpg');
+     background-size: 100% 100%; /* Hace que la imagen se estire para llenar toda la sección */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    background-position: center; /* Centra la imagen */
+    width: 100%; /* Asegura que ocupe todo el ancho */
+    height: auto; /* Se ajusta al contenido */
+    min-height: 100vh;
+    
+    
+}
+
+.fondo4 {
+    background-image: url('img/header3.jpg');
+     background-size: 100% 100%; /* Hace que la imagen se estire para llenar toda la sección */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    background-position: center; /* Centra la imagen */
+    width: 100%; /* Asegura que ocupe todo el ancho */
+    height: auto; /* Se ajusta al contenido */
+    min-height: 15vh;
+    color: white !important; /* Mantiene texto legible */
+    box-shadow: 100px 100px 120px rgba(0, 0, 0, 0.3);
+}
+.navbar {
+    background: transparent !important; /* Elimina el color por defecto */
+    box-shadow: none; /* Si tiene sombra, elimínala */
+    color: white !important; /* Mantiene texto legible */
+}
+.fondo2 {
+    background: linear-gradient(to bottom, #140c08, #201611); /* Marrón profundo que se acerca al negro */
+    padding: 50px 0; /* Espaciado interno */
+    color: white; /* Mantiene la legibilidad */
+}
+
+/* Carrusel ocupa toda la pantalla */
+#carouselExampleCaptions {
+  height: 100vh; /* 100% de la altura del viewport */
+  overflow: hidden;
+}
+
+/* Las imágenes se ajustan al alto del carrusel */
+.carousel-item img {
+  height: 100vh;
+  object-fit: cover;
+  width: 10%;
+}
+
+/* Texto centrado y legible sobre la imagen */
+.carousel-caption {
+  bottom: 20%;
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.navbar .btn {
+    margin-right: 10px; /* Espaciado entre botones */
+    color: rgb(255, 243, 243) !important;
+    background-color: #bb8d55; /* Marrón claro */
+    border-color: #bb8d55;
+    cursor: pointer;
+    border-radius: 100px;
+}
+.navbar .btn:hover {
+    background-color: #A67B5B; /* Marrón claro */
+    color: white; /* Texto blanco */
+    transition: 0.3s ease-in-out;
+}
+.header{
+    padding-top: 40px
+}
+
+.body-background {
+    background-color: #25120B; /* Marrón oscuro elegante */
+    background-image: url('img/mensaje.jpg'); /* Reemplaza con la ruta correcta */
+  background-size: 100% 100%; /* Hace que la imagen se estire para llenar toda la sección */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    background-position: center; /* Centra la imagen */
+    width: 100%; /* Asegura que ocupe todo el ancho */
+    height: auto; /* Se ajusta al contenido */
+    min-height: 10vh;
+    color: white !important; /* Asegura buena visibilidad del texto */
+    padding: 20px; /* Ajusta el espacio interno */
+}
+.modal-content {
+    background-color: #23110b; /* Marrón oscuro elegante */
+    background-image: url('img/mensaje2.jpg'); /* Imagen de fondo para todo el modal */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: white !important; /* Mantiene texto legible */
+    border-radius: 100px; /* Bordes suaves */
+    padding: 20px;
+}
+
+
+
+.footer {
+        background-color: #ffffff;
+        text-align: center;
+        padding: 10px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+    }
+
+    .footer-link {
+        text-decoration: none;
+        color: #333;
+        font-size: 18px;
+        font-weight: bold;
+    }
+    .footer-text {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    width: 100%;
+}
+.footerbg {
+  background-image: url('img/madera4.jpg'); /* Cambia la ruta según tu carpeta */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: white; /* Asegura que el texto sea legible */
+}
+
+
+}

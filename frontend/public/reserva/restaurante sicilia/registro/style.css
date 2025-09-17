@@ -1,0 +1,77 @@
+.fondo {
+    background-image: url('img/fondoregistro.jpg');
+     background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 100%;
+    height: auto;
+    min-height: 15vh;
+    color: white !important;
+    box-shadow: 100px 100px 120px rgba(0, 0, 0, 0.3);
+}
+.navbar .btn {
+    margin-right: 10px;
+    color: rgb(255, 243, 243) !important;
+    background-color: #bb8d55;
+    border-color: #bb8d55;
+    cursor: pointer;
+    border-radius: 100px;
+}
+.navbar .btn:hover {
+    background-color: #422712;
+    color: white;
+    transition: 0.3s ease-in-out;
+}
+.navbar {
+    background: transparent !important;
+    box-shadow: none;
+    color: white !important;
+}
+.btn-marron {
+  background-color: #a37946;
+  border-color: #a37946;
+  color: #fff;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.btn-marron:hover {
+  background-color: #816139;
+  border-color: #816139;
+}
+
+.btn-marron:active {
+  background-color: #301a13;
+  border-color: #301a13;
+}
+
+/* Fondo marrón para el área de formularios */
+.fondoregistro {
+  position: relative;
+  min-height: 140vh;
+  background-color: #a37946; /* marrón sólido */
+  padding: 2rem 0;
+}
+.fondoregistro::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('img/header3.jpg');
+  background-size: cover;
+  background-position: center;
+  filter: blur(7px);
+  z-index: 0;
+  /* Elimina esta línea ↓ */
+  /* background-color: rgba(255,255,255,0.3); */
+}
+
+
+/* Contenido por encima del fondo desenfocado */
+.fondoregistro form {
+  position: relative;
+  z-index: 1;
+  background-color: rgba(124, 86, 53, 0.9); /* Opcional: fondo blanco translúcido para mejor lectura */
+  padding: 2rem;
+  border-radius: 52px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.2);
+}
+

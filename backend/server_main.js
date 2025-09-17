@@ -35,8 +35,18 @@ app.use('/reserva', express.static(path.join(__dirname, 'public', 'reserva')));
 // ==================== RUTAS BASE ====================
 // Ruta raíz → directorio
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'directorio', 'directorio.html'));
+    res.sendFile(path.join(__dirname, '../frontend/public/directorio/directorio.html'));
 });
+
+// Compatibilidad con enlaces antiguos
+app.get('/directorio.html', (req, res) => {
+    res.sendFile(path.join(__dirname, '../frontend/public/directorio/directorio.html'));
+});
+
+app.get('/añadirrestaurante/agregar_restaurante.html', (req, res) => {
+    res.sendFile(path.join(__dirname, '../frontend/public/añadirrestaurante/agregar_restaurante.html'));
+});
+
 
 // Compatibilidad con enlaces antiguos
 app.get('/directorio.html', (req, res) => {

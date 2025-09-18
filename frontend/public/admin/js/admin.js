@@ -1,5 +1,11 @@
+// Detectar si estamos en local o en producción
+const API_BASE = window.location.hostname.includes('localhost')
+  ? ''
+  : 'https://directorio-de-restaurantes.onrender.com';
+
+// ======== VERIFICAR ADMIN ========
 async function verificarAdmin() {
-  const res = await fetch('/api/session', { credentials: 'include' });
+  const res = await fetch(`${API_BASE}/api/session`, { credentials: 'include' });
   const data = await res.json();
   if (data.role !== 'admin') {
     window.location.href = '/directorio/directorio.html';
@@ -37,7 +43,7 @@ function mostrarSeccion(view) {
 
 // ======== RESERVAS ========
 async function cargarReservas() {
-  const res = await fetch('/api/admin/reservas', { credentials: 'include' });
+  const res = await fetch(`${API_BASE}/api/admin/reservas`, { credentials: 'include' });
   const reservas = await res.json();
   renderReservas(reservas);
 }
@@ -72,7 +78,7 @@ function renderReservas(lista) {
 async function cambiarEstadoReserva(id, nuevoEstado) {
   if (!confirm(`¿Seguro que quieres marcar esta reserva como ${nuevoEstado}?`)) return;
   try {
-    await fetch(`/api/reservas/${id}/estado`, {
+    await fetch(`${API_BASE}/api/reservas/${id}/estado`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',
@@ -86,7 +92,7 @@ async function cambiarEstadoReserva(id, nuevoEstado) {
 
 // ======== RESTAURANTES ========
 async function cargarRestaurantes() {
-  const res = await fetch('/api/admin/restaurantes', { credentials: 'include' });
+  const res = await fetch(`${API_BASE}/api/admin/restaurantes`, { credentials: 'include' });
   const restaurantes = await res.json();
   renderRestaurantes(restaurantes);
 }
@@ -118,7 +124,7 @@ function renderRestaurantes(lista) {
 async function eliminarRestaurante(id) {
   if (!confirm('¿Seguro que quieres eliminar este restaurante?')) return;
   try {
-    await fetch(`/api/admin/restaurantes/${id}`, {
+    await fetch(`${API_BASE}/api/admin/restaurantes/${id}`, {
       method: 'DELETE',
       credentials: 'include'
     });
@@ -131,7 +137,7 @@ async function eliminarRestaurante(id) {
 // ======== USUARIOS/ADMINS ========
 async function cargarUsuarios() {
   try {
-    const res = await fetch('/api/admin/usuarios', { credentials: 'include' });
+    const res = await fetch(`${API_BASE}/api/admin/usuarios`, { credentials: 'include' });
     const usuarios = await res.json();
     renderUsuarios(usuarios);
   } catch (error) {
@@ -163,7 +169,7 @@ function renderUsuarios(lista) {
 async function eliminarUsuario(id, rol) {
   if (!confirm('¿Seguro que quieres eliminar este usuario?')) return;
   try {
-    await fetch(`/api/admin/usuarios/${id}?rol=${rol}`, {
+    await fetch(`${API_BASE}/api/admin/usuarios/${id}?rol=${rol}`, {
       method: 'DELETE',
       credentials: 'include'
     });

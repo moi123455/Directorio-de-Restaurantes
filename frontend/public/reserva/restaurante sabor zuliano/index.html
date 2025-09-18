@@ -343,6 +343,7 @@
     </div>
 
     <form class="form-reserva">
+        <input type="hidden" id="restauranteId" name="restaurante_id" value="ID_REAL_DEL_RESTAURANTE">
         <label for="nombre">Nombre completo:</label>
         <input type="text" id="nombre" name="nombre" placeholder="Daniel Sandoval" required
             pattern="[A-Za-zÁÉÍÓÚÑáéíóúñ ]{2,}" title="Ingresa solo letras y espacios.">
@@ -470,52 +471,55 @@
 <script>
 document.addEventListener("DOMContentLoaded", () => {
   const formReserva = document.querySelector(".form-reserva");
+  const spanMesas = document.getElementById("mesas-disponibles");
 
-  formReserva.addEventListener("submit", function (e) {
-    e.preventDefault(); // Evita recarga
+  // Inicializar mesas disponibles desde localStorage o 30
+  let mesasDisponibles = parseInt(localStorage.getItem("mesasDisponibles") || "30", 10);
+  spanMesas.textContent = mesasDisponibles;
 
-    // Construir objeto con nombres correctos para el backend
+  formReserva.addEventListener("submit", async function (e) {
+    e.preventDefault();
+
     const datos = {
-      restaurante_id: 2, // ID fijo o dinámico según corresponda
-      nombre: document.getElementById("nombre")?.value.trim() || null,
-      email: document.getElementById("correo")?.value.trim() || null,
-      telefono: document.getElementById("telefono")?.value.trim() || null,
-      fecha: document.getElementById("fecha")?.value || null, // input type="date" ya da yyyy-mm-dd
-      hora: document.getElementById("reservation-time")?.value || null,
-      personas: document.getElementById("personas")?.value || null,
-      comentarios: document.getElementById("detalle")?.value.trim() || null
+      restaurante_id: document.getElementById("restauranteId").value,
+      nombre: document.getElementById("nombre").value.trim(),
+      email: document.getElementById("correo").value.trim(),
+      telefono: document.getElementById("telefono").value.trim(),
+      fecha: document.getElementById("fecha").value.trim(), // input type="date" ya da yyyy-mm-dd
+      hora: document.getElementById("reservation-time").value.trim(),
+      personas: document.getElementById("personas").value,
+      comentarios: document.getElementById("detalle").value.trim()
     };
 
-    // Mostrar en consola para depuración
     console.log("Datos que se enviarán:", datos);
 
-    // Advertir si hay undefined
-    Object.entries(datos).forEach(([clave, valor]) => {
-      if (valor === undefined) {
-        console.warn(`⚠️ El campo "${clave}" está undefined`);
-      }
-    });
+    try {
+      const res = await fetch("/api/reservas", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include", // importante para enviar cookie de sesión
+        body: JSON.stringify(datos)
+      });
 
-    // Enviar al backend
-    fetch("http://localhost:3000/api/reservas", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(datos)
-    })
-    .then(res => res.json())
-    .then(data => {
-      console.log("Respuesta del servidor:", data);
-      if (data.message) {
-        alert("✅ Reserva creada con éxito");
-        formReserva.reset();
-      } else {
-        alert("⚠️ Hubo un problema al crear la reserva");
+      const data = await res.json();
+
+      if (!res.ok) {
+        alert(data.error || "Error al crear la reserva");
+        return;
       }
-    })
-    .catch(err => {
+
+      // Si la reserva fue exitosa, actualizar contador de mesas
+      mesasDisponibles = Math.max(mesasDisponibles - 1, 0);
+      localStorage.setItem("mesasDisponibles", mesasDisponibles);
+      spanMesas.textContent = mesasDisponibles;
+
+      alert("✅ Reserva creada con éxito");
+      formReserva.reset();
+
+    } catch (err) {
       console.error("Error en fetch:", err);
       alert("❌ Error de conexión con el servidor");
-    });
+    }
   });
 });
 </script>

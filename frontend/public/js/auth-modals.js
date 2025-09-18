@@ -5,7 +5,6 @@ async function checkSessionWhenReady() {
     const adminBadge = document.getElementById('adminBadge');
     const btnLogout = document.getElementById('btnLogout');
     const btnRegistroUsuario = document.getElementById('btnRegistroUsuario'); // Botón "Registro de usuario"
-    const btnGoRegistro = document.getElementById('btnGoRegistro'); // Botón "Registrarme" del modal acción
 
     if (!loginItem || !userItem) {
         return setTimeout(checkSessionWhenReady, 100);
@@ -70,22 +69,26 @@ async function checkSessionWhenReady() {
 }
 
 // 🔹 Ajuste para ocultar el botón de registro si se selecciona "Administrador"
-document.addEventListener('DOMContentLoaded', () => {
+// Este bloque se ejecuta después de que los modales estén cargados en el DOM
+function configurarBotonesRol() {
     const btnAdmin = document.getElementById('btnAdmin');
     const btnUsuario = document.getElementById('btnUsuario');
     const btnGoRegistro = document.getElementById('btnGoRegistro');
 
-    if (btnAdmin && btnGoRegistro) {
-        btnAdmin.addEventListener('click', () => {
-            btnGoRegistro.style.display = 'none'; // Oculta registro para admin
-        });
+    if (!btnAdmin || !btnUsuario || !btnGoRegistro) {
+        // Si aún no existen, reintentar en 100ms
+        return setTimeout(configurarBotonesRol, 100);
     }
 
-    if (btnUsuario && btnGoRegistro) {
-        btnUsuario.addEventListener('click', () => {
-            btnGoRegistro.style.display = 'inline-block'; // Muestra registro para usuario
-        });
-    }
-});
+    btnAdmin.addEventListener('click', () => {
+        btnGoRegistro.style.display = 'none'; // Oculta registro para admin
+    });
 
+    btnUsuario.addEventListener('click', () => {
+        btnGoRegistro.style.display = 'inline-block'; // Muestra registro para usuario
+    });
+}
+
+// Iniciar chequeo de sesión y configuración de botones
 checkSessionWhenReady();
+configurarBotonesRol();

@@ -905,10 +905,12 @@ app.post('/api/restaurantes', requireAdmin, upload.single('imagen'), async (req,
         await generateRestaurantPage(restaurante[0]);
 
         res.status(201).json({
-            message: 'Restaurante creado exitosamente',
-            restaurante: restaurante[0],
-            url: carpetaHtml
-        });
+    message: 'Restaurante creado exitosamente',
+    id: restaurante[0].id,
+    restaurante: restaurante[0],
+    url: carpetaHtml
+});
+
 
     } catch (error) {
         console.error('Error creando restaurante:', error);

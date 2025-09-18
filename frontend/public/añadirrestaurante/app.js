@@ -616,38 +616,41 @@ document.getElementById('restaurantForm').addEventListener('submit', async funct
         }
 
         const API = window.__API_BASE_URL || '';
-        const response = await fetch(API + '/api/restaurantes', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(restaurantData)
-        });
+const response = await fetch(API + '/api/restaurantes', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    credentials: 'include', // 🔹 importante para producción
+    body: JSON.stringify(restaurantData)
+});
 
-        const result = await response.json();
+const result = await response.json();
 
-        if (!result.success) {
-            showLoading(false);
-            showError(result.message || 'Error al guardar en la base de datos');
-            return;
-        }
+if (!result.success) {
+    showLoading(false);
+    showError(result.message || 'Error al guardar en la base de datos');
+    return;
+}
 
-        await new Promise(resolve => setTimeout(resolve, 2000));
+// Usar el ID real que devuelve el backend
+const restaurantId = result.id;
 
-        const restaurantId = updateMainDirectory(restaurantData);
-        createRestaurantFile(restaurantData, restaurantId);
+updateMainDirectory({ ...restaurantData, id: restaurantId });
+createRestaurantFile({ ...restaurantData, id: restaurantId }, restaurantId);
 
-        console.log('Guardando en base de datos:', {
-            ...restaurantData,
-            id: restaurantId,
-            createdAt: new Date().toISOString(),
-            status: 'active'
-        });
+console.log('Guardando en base de datos:', {
+    ...restaurantData,
+    id: restaurantId,
+    createdAt: new Date().toISOString(),
+    status: 'active'
+});
 
-        showLoading(false);
-        showSuccess('¡Restaurante creado exitosamente! Tu página ha sido generada.');
+showLoading(false);
+showSuccess('¡Restaurante creado exitosamente! Tu página ha sido generada.');
 
-        setTimeout(() => {
-            window.location.href = '../directorio.html';
-        }, 3000);
+setTimeout(() => {
+    window.location.href = '../directorio.html';
+}, 3000);
+
 
     } catch (error) {
         showLoading(false);

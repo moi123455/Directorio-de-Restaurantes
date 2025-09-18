@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel de Administración</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      <nav class="col-md-2 d-none d-md-block bg-dark sidebar">
+        <div class="sidebar-sticky">
+          <h4 class="text-white p-3">Panel Admin</h4>
+          <ul class="nav flex-column">
+            <li class="nav-item"><a class="nav-link text-white" href="#" data-view="reservas">Reservas</a></li>
+            <li class="nav-item"><a class="nav-link text-white" href="#" data-view="restaurantes">Restaurantes</a></li>
+            <li class="nav-item"><a class="nav-link text-white" href="#" data-view="usuarios">Usuarios/Admins</a></li>
+          </ul>
+        </div>
+      </nav>
+      <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4" id="view">
+        <h1 class="mt-4">Bienvenido, Admin</h1>
+        <p>Selecciona una sección del menú para comenzar.</p>
+      </main>
+    </div>
+  </div>
+  <script src="js/admin.js"></script>
+</body>
+</html>

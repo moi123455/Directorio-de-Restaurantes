@@ -968,6 +968,18 @@ app.get('/api/restaurantes/:id/reservas', requireAdmin, async (req, res) => {
     }
 });
 
+// ==================== OBTENER LISTA DE RESERVAS (SOLO ADMIN) ====================
+app.get('/api/admin/reservas', requireAdmin, async (req, res) => {
+  const [rows] = await db.execute(`
+    SELECT r.*, rest.nombre AS restaurante_nombre
+    FROM reservas r
+    JOIN restaurantes rest ON r.restaurante_id = rest.id
+    ORDER BY r.fecha_reserva DESC, r.hora_reserva DESC
+  `);
+  res.json(rows);
+});
+
+
 // ==================== ACTUALIZAR ESTADO DE RESERVA (SOLO ADMIN) ====================
 app.put('/api/reservas/:id/estado', requireAdmin, async (req, res) => {
     try {

@@ -119,6 +119,34 @@ app.get('/api/restaurantes', async (req, res) => {
     }
 });
 
+// ==================== CONFIGURACIÓN NODEMAILER ====================
+const nodemailer = require('nodemailer');
+
+const transporter = nodemailer.createTransport({
+    host: process.env.SMTP_HOST,
+    port: process.env.SMTP_PORT,
+    secure: process.env.SMTP_SECURE === 'true', // true para 465, false para otros
+    auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS
+    }
+});
+
+async function enviarCorreo(destinatario, asunto, mensaje) {
+    try {
+        await transporter.sendMail({
+            from: `"Directorio Restaurantes" <${process.env.SMTP_USER}>`,
+            to: destinatario,
+            subject: asunto,
+            text: mensaje
+        });
+        console.log(`Correo enviado a ${destinatario}`);
+    } catch (error) {
+        console.error('Error enviando correo:', error);
+    }
+}
+
+
 // ==================== CREACIÓN DE TABLAS ====================
 async function createTables() {
     const createUsuariosTable = `
@@ -744,7 +772,6 @@ app.get('/api/restaurantes/:slug', async (req, res) => {
 });
 
 // ==================== USUARIOS ====================
-
 app.post('/api/usuarios/register', async (req, res) => {
     try {
         const { nombre, email, password } = req.body;
@@ -753,6 +780,14 @@ app.post('/api/usuarios/register', async (req, res) => {
             'INSERT INTO usuarios (nombre, email, password_hash) VALUES (?, ?, ?)',
             [nombre, email, hashedPassword]
         );
+
+        // Enviar correo de bienvenida
+        await enviarCorreo(
+            email,
+            'Registro exitoso',
+            `Su registro en nuestra base de datos ha culminado exitosamente..! bienvenido usuario ${nombre}`
+        );
+
         res.json({ message: 'Usuario registrado correctamente' });
     } catch (error) {
         console.error('Error registrando usuario:', error);
@@ -760,25 +795,7 @@ app.post('/api/usuarios/register', async (req, res) => {
     }
 });
 
-app.post('/api/usuarios/login', async (req, res) => {
-    try {
-        const { email, password } = req.body;
-        const [rows] = await db.execute('SELECT * FROM usuarios WHERE email = ?', [email]);
-        if (rows.length === 0) return res.status(401).json({ error: 'Usuario no encontrado' });
-
-        const match = await bcrypt.compare(password, rows[0].password_hash);
-        if (!match) return res.status(401).json({ error: 'Contraseña incorrecta' });
-
-        req.session.usuarioId = rows[0].id;
-        res.json({ message: 'Login exitoso', usuario: rows[0] });
-    } catch (error) {
-        console.error('Error en login de usuario:', error);
-        res.status(500).json({ error: 'Error interno del servidor' });
-    }
-});
-
 // ==================== ADMINISTRADORES ====================
-
 app.post('/api/admin/register', async (req, res) => {
     try {
         const { username, email, password, nombre_completo } = req.body;
@@ -787,6 +804,14 @@ app.post('/api/admin/register', async (req, res) => {
             'INSERT INTO administradores (username, email, password_hash, nombre_completo) VALUES (?, ?, ?, ?)',
             [username, email, hashedPassword, nombre_completo]
         );
+
+        // Enviar correo de bienvenida
+        await enviarCorreo(
+            email,
+            'Registro exitoso',
+            `Su registro en nuestra base de datos ha culminado exitosamente..! bienvenido admin ${nombre_completo || username}`
+        );
+
         res.json({ message: 'Administrador registrado correctamente' });
     } catch (error) {
         console.error('Error registrando administrador:', error);
@@ -794,37 +819,28 @@ app.post('/api/admin/register', async (req, res) => {
     }
 });
 
-app.post('/api/admin/login', async (req, res) => {
-    try {
-        const { username, password } = req.body;
-        const [rows] = await db.execute('SELECT * FROM administradores WHERE username = ?', [username]);
-        if (rows.length === 0) return res.status(401).json({ error: 'Admin no encontrado' });
-
-        const match = await bcrypt.compare(password, rows[0].password_hash);
-        if (!match) return res.status(401).json({ error: 'Contraseña incorrecta' });
-
-        req.session.adminId = rows[0].id;
-        res.json({ message: 'Login admin exitoso', admin: rows[0] });
-    } catch (error) {
-        console.error('Error en login de admin:', error);
-        res.status(500).json({ error: 'Error interno del servidor' });
-    }
-});
 
 // ==================== MIDDLEWARES DE AUTENTICACIÓN ====================
 function requireUsuario(req, res, next) {
     if (!req.session.usuarioId) {
-        return res.status(403).json({ error: 'Debes iniciar sesión para reservar' });
+        return res.status(403).json({
+            code: 'AUTH_REQUIRED_USER',
+            message: 'Debes iniciar sesión como usuario para poder realizar una reserva. Inicia sesión e inténtalo de nuevo.'
+        });
     }
     next();
 }
 
 function requireAdmin(req, res, next) {
     if (!req.session.adminId) {
-        return res.status(403).json({ error: 'Acceso solo para administradores' });
+        return res.status(403).json({
+            code: 'AUTH_REQUIRED_ADMIN',
+            message: 'Acceso denegado: esta sección es solo para administradores. Inicia sesión con una cuenta de administrador.'
+        });
     }
     next();
 }
+
 
 // ==================== SESIÓN ACTIVA ====================
 app.get('/api/session', async (req, res) => {
@@ -946,6 +962,17 @@ app.post('/api/reservas', requireUsuario, async (req, res) => {
 
         const [result] = await db.execute(sql, values);
 
+        // Obtener nombre del restaurante para el correo
+        const [rest] = await db.execute('SELECT nombre FROM restaurantes WHERE id = ?', [restaurante_id]);
+        const nombreRestaurante = rest[0]?.nombre || 'Restaurante';
+
+        // Enviar correo de confirmación de recepción
+        await enviarCorreo(
+            email,
+            'Reserva recibida',
+            `Usted ha realizado una reserva en el restaurante ${nombreRestaurante} su reserva ha ingresado en nuestros servidores esperando por la confirmacion de un administrador, por favor sea paciente mientras espera..!`
+        );
+
         res.status(201).json({
             message: 'Reserva creada exitosamente',
             reserva_id: result.insertId
@@ -1019,6 +1046,33 @@ app.put('/api/reservas/:id/estado', requireAdmin, async (req, res) => {
     try {
         const { estado } = req.body;
         await db.execute('UPDATE reservas SET estado = ? WHERE id = ?', [estado, req.params.id]);
+
+        // Obtener datos de la reserva y restaurante para el correo
+        const [reservaData] = await db.execute(`
+            SELECT r.nombre_cliente, r.email_cliente, r.fecha_reserva, r.hora_reserva, rest.nombre AS restaurante_nombre
+            FROM reservas r
+            JOIN restaurantes rest ON r.restaurante_id = rest.id
+            WHERE r.id = ?
+        `, [req.params.id]);
+
+        if (reservaData.length > 0) {
+            const { email_cliente, restaurante_nombre, fecha_reserva, hora_reserva } = reservaData[0];
+            let asunto = '';
+            let mensaje = '';
+
+            if (estado === 'confirmada') {
+                asunto = 'Reserva confirmada';
+                mensaje = `Estimado Comensal, su reserva en el restaurante ${restaurante_nombre} ha sido confirmada por un administrador..! su reserva estara pautada para el dia ${fecha_reserva} con hora ${hora_reserva} disfrute de su comida y esperamos que haya disfrutado de nuestros servicios..!`;
+            } else if (estado === 'cancelada') {
+                asunto = 'Reserva rechazada';
+                mensaje = `Estimado Comensal, su reserva por desgracia, ha sido rechazada por nuestra administracion.. por favor, verifique el comprobante de transferencia y los datos a donde ha realizado la transferencia, le suplicamos que vuelva a intentar nuevamente o contacte con uno de nuestros administradores`;
+            }
+
+            if (asunto && mensaje) {
+                await enviarCorreo(email_cliente, asunto, mensaje);
+            }
+        }
+
         res.json({ message: 'Estado de reserva actualizado' });
     } catch (error) {
         console.error('Error actualizando reserva:', error);

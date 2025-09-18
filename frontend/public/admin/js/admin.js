@@ -55,10 +55,33 @@ function renderReservas(lista) {
       <td>${r.fecha_reserva}</td>
       <td>${r.hora_reserva}</td>
       <td>${r.numero_personas}</td>
-      <td>${r.estado}</td>
+      <td>
+        <span class="badge bg-${r.estado === 'confirmada' ? 'success' : r.estado === 'cancelada' ? 'danger' : 'secondary'}">
+          ${r.estado}
+        </span>
+        <div class="mt-1">
+          <button class="btn btn-sm btn-success" onclick="cambiarEstadoReserva(${r.id}, 'confirmada')">Confirmar</button>
+          <button class="btn btn-sm btn-danger" onclick="cambiarEstadoReserva(${r.id}, 'cancelada')">Cancelar</button>
+        </div>
+      </td>
     `;
     tbody.appendChild(tr);
   });
+}
+
+async function cambiarEstadoReserva(id, nuevoEstado) {
+  if (!confirm(`¿Seguro que quieres marcar esta reserva como ${nuevoEstado}?`)) return;
+  try {
+    await fetch(`/api/reservas/${id}/estado`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify({ estado: nuevoEstado })
+    });
+    cargarReservas();
+  } catch (error) {
+    console.error('Error cambiando estado de reserva:', error);
+  }
 }
 
 // ======== RESTAURANTES ========

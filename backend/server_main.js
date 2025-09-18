@@ -819,6 +819,49 @@ app.post('/api/admin/register', async (req, res) => {
     }
 });
 
+// ==================== LOGIN USUARIOS ====================
+app.post('/api/usuarios/login', async (req, res) => {
+    try {
+        const { email, password } = req.body;
+        const [rows] = await db.execute('SELECT * FROM usuarios WHERE email = ?', [email]);
+        if (rows.length === 0) {
+            return res.status(400).json({ error: 'Usuario no encontrado' });
+        }
+        const usuario = rows[0];
+        const match = await bcrypt.compare(password, usuario.password_hash);
+        if (!match) {
+            return res.status(400).json({ error: 'Contraseña incorrecta' });
+        }
+        req.session.usuarioId = usuario.id;
+        res.json({ message: 'Login exitoso', role: 'usuario', nombre: usuario.nombre });
+    } catch (error) {
+        console.error('Error en login usuario:', error);
+        res.status(500).json({ error: 'Error interno del servidor' });
+    }
+});
+
+// ==================== LOGIN ADMIN ====================
+app.post('/api/admin/login', async (req, res) => {
+    try {
+        const { username, password } = req.body;
+        const [rows] = await db.execute('SELECT * FROM administradores WHERE username = ?', [username]);
+        if (rows.length === 0) {
+            return res.status(400).json({ error: 'Administrador no encontrado' });
+        }
+        const admin = rows[0];
+        const match = await bcrypt.compare(password, admin.password_hash);
+        if (!match) {
+            return res.status(400).json({ error: 'Contraseña incorrecta' });
+        }
+        req.session.adminId = admin.id;
+        res.json({ message: 'Login exitoso', role: 'admin', username: admin.username });
+    } catch (error) {
+        console.error('Error en login admin:', error);
+        res.status(500).json({ error: 'Error interno del servidor' });
+    }
+});
+
+
 
 // ==================== MIDDLEWARES DE AUTENTICACIÓN ====================
 function requireUsuario(req, res, next) {

@@ -819,11 +819,14 @@ app.post('/api/admin/register', async (req, res) => {
     }
 });
 
-// ==================== LOGIN USUARIOS ====================
+// ==================== LOGIN USUARIOS (username o email) ====================
 app.post('/api/usuarios/login', async (req, res) => {
     try {
-        const { email, password } = req.body;
-        const [rows] = await db.execute('SELECT * FROM usuarios WHERE email = ?', [email]);
+        const { email, password } = req.body; // "email" aquí puede ser email o nombre de usuario
+        const [rows] = await db.execute(
+            'SELECT * FROM usuarios WHERE email = ? OR nombre = ?',
+            [email, email]
+        );
         if (rows.length === 0) {
             return res.status(400).json({ error: 'Usuario no encontrado' });
         }
@@ -840,11 +843,14 @@ app.post('/api/usuarios/login', async (req, res) => {
     }
 });
 
-// ==================== LOGIN ADMIN ====================
+// ==================== LOGIN ADMIN (username o email) ====================
 app.post('/api/admin/login', async (req, res) => {
     try {
-        const { username, password } = req.body;
-        const [rows] = await db.execute('SELECT * FROM administradores WHERE username = ?', [username]);
+        const { username, password } = req.body; // "username" aquí puede ser username o email
+        const [rows] = await db.execute(
+            'SELECT * FROM administradores WHERE username = ? OR email = ?',
+            [username, username]
+        );
         if (rows.length === 0) {
             return res.status(400).json({ error: 'Administrador no encontrado' });
         }
@@ -860,6 +866,7 @@ app.post('/api/admin/login', async (req, res) => {
         res.status(500).json({ error: 'Error interno del servidor' });
     }
 });
+
 
 
 
@@ -1105,23 +1112,27 @@ app.put('/api/reservas/:id/estado', requireAdmin, async (req, res) => {
 
             if (estado === 'confirmada') {
                 asunto = 'Reserva confirmada';
-                mensaje = `Estimado Comensal, su reserva en el restaurante ${restaurante_nombre} ha sido confirmada por un administrador..! su reserva estara pautada para el dia ${fecha_reserva} con hora ${hora_reserva} disfrute de su comida y esperamos que haya disfrutado de nuestros servicios..!`;
+                mensaje = `Estimado Comensal, su reserva en el restaurante ${restaurante_nombre} ha sido confirmada por un administrador..! su reserva estará pautada para el día ${fecha_reserva} con hora ${hora_reserva}.`;
             } else if (estado === 'cancelada') {
                 asunto = 'Reserva rechazada';
-                mensaje = `Estimado Comensal, su reserva por desgracia, ha sido rechazada por nuestra administracion.. por favor, verifique el comprobante de transferencia y los datos a donde ha realizado la transferencia, le suplicamos que vuelva a intentar nuevamente o contacte con uno de nuestros administradores`;
+                mensaje = `Estimado Comensal, su reserva ha sido rechazada por nuestra administración. Por favor, verifique los datos y vuelva a intentarlo o contacte con un administrador.`;
             }
 
             if (asunto && mensaje) {
                 await enviarCorreo(email_cliente, asunto, mensaje);
             }
+
+            // 🔹 Eliminar la reserva después de notificar
+            await db.execute('DELETE FROM reservas WHERE id = ?', [req.params.id]);
         }
 
-        res.json({ message: 'Estado de reserva actualizado' });
+        res.json({ message: 'Estado de reserva actualizado y reserva eliminada' });
     } catch (error) {
         console.error('Error actualizando reserva:', error);
         res.status(500).json({ error: 'Error interno del servidor' });
     }
 });
+
 // ==================== GESTIÓN DE USUARIOS Y ADMINS (SOLO ADMIN) ====================
 app.get('/api/admin/usuarios', requireAdmin, async (req, res) => {
   try {

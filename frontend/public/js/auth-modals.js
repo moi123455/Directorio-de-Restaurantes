@@ -5,6 +5,7 @@ async function checkSessionWhenReady() {
     const adminBadge = document.getElementById('adminBadge');
     const btnLogout = document.getElementById('btnLogout');
     const btnRegistroUsuario = document.getElementById('btnRegistroUsuario'); // Botón "Registro de usuario"
+    const btnGoRegistro = document.getElementById('btnGoRegistro'); // Botón "Registrarme" del modal acción
 
     if (!loginItem || !userItem) {
         return setTimeout(checkSessionWhenReady, 100);
@@ -67,5 +68,24 @@ async function checkSessionWhenReady() {
         console.error('Error verificando sesión:', err);
     }
 }
+
+// 🔹 Ajuste para ocultar el botón de registro si se selecciona "Administrador"
+document.addEventListener('DOMContentLoaded', () => {
+    const btnAdmin = document.getElementById('btnAdmin');
+    const btnUsuario = document.getElementById('btnUsuario');
+    const btnGoRegistro = document.getElementById('btnGoRegistro');
+
+    if (btnAdmin && btnGoRegistro) {
+        btnAdmin.addEventListener('click', () => {
+            btnGoRegistro.style.display = 'none'; // Oculta registro para admin
+        });
+    }
+
+    if (btnUsuario && btnGoRegistro) {
+        btnUsuario.addEventListener('click', () => {
+            btnGoRegistro.style.display = 'inline-block'; // Muestra registro para usuario
+        });
+    }
+});
 
 checkSessionWhenReady();

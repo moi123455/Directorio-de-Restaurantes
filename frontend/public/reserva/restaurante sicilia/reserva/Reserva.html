@@ -500,7 +500,6 @@ document.addEventListener("DOMContentLoaded", function () {
 <script>
   const botonPago = document.getElementById("botonPago");
 
-  // Validación dinámica: habilitar botón solo si todo el formulario está completo
   function validarFormularioCompleto() {
     const nombre = document.getElementById("inputAddress").value.trim();
     const correo = document.getElementById("inputEmail4").value.trim();
@@ -529,44 +528,53 @@ document.addEventListener("DOMContentLoaded", function () {
     return completo;
   }
 
-  // Escuchar cambios en los campos del formulario
+  // Escuchar cambios en inputs y selects
   document.querySelectorAll("input, select").forEach(el => {
     el.addEventListener("input", validarFormularioCompleto);
     el.addEventListener("change", validarFormularioCompleto);
   });
 
+  // Escuchar selección de comida
+  document.querySelectorAll(".seleccionar-comida").forEach(btn => {
+    btn.addEventListener("click", () => {
+      setTimeout(validarFormularioCompleto, 50);
+    });
+  });
+
+  // Escuchar selección de mesa
+  document.querySelectorAll(".mesa").forEach(btn => {
+    btn.addEventListener("click", () => {
+      setTimeout(validarFormularioCompleto, 50);
+    });
+  });
+
+  // Escuchar campo de grupo grande
+  document.getElementById("cantidadGrupo").addEventListener("input", validarFormularioCompleto);
+
+  // Inicializar estado del botón
+  validarFormularioCompleto();
+
   // Click en el botón de pago
   botonPago.addEventListener("click", function () {
     if (validarFormularioCompleto()) {
-
-      // Construir objeto de datos con protecciones contra undefined
       const datos = {
-         restaurante_id: 1,
-  nombre: document.getElementById("inputAddress")?.value.trim() || null,
-  email: document.getElementById("inputEmail4")?.value.trim() || null,
-  telefono: document.getElementById("inputTelefono")?.value.trim() || null,
-  fecha: document.getElementById("fechaReserva")?.value
-    ? document.getElementById("fechaReserva").value.trim().split('/').reverse().join('-')
-    : null,
-  hora: document.getElementById("horaReserva")?.value.trim() || null,
-  personas: document.getElementById("mesaSelect")?.value === "etc"
-    ? (document.getElementById("cantidadGrupo")?.value.trim() || null)
-    : (document.getElementById("mesaSelect")?.value || null),
-  comentarios: document.getElementById("restricciones")?.value.trim() || null
+        restaurante_id: 1,
+        nombre: document.getElementById("inputAddress")?.value.trim() || null,
+        email: document.getElementById("inputEmail4")?.value.trim() || null,
+        telefono: document.getElementById("inputTelefono")?.value.trim() || null,
+        fecha: document.getElementById("fechaReserva")?.value
+          ? document.getElementById("fechaReserva").value.trim().split('/').reverse().join('-')
+          : null,
+        hora: document.getElementById("horaReserva")?.value.trim() || null,
+        personas: document.getElementById("mesaSelect")?.value === "etc"
+          ? (document.getElementById("cantidadGrupo")?.value.trim() || null)
+          : (document.getElementById("mesaSelect")?.value || null),
+        comentarios: document.getElementById("restricciones")?.value.trim() || null
       };
 
-      // Mostrar datos en consola
       console.log("Datos que se enviarán:", datos);
 
-      // Advertir si hay undefined
-      Object.entries(datos).forEach(([clave, valor]) => {
-        if (valor === undefined) {
-          console.warn(`⚠️ El campo "${clave}" está undefined`);
-        }
-      });
-
-      // Enviar datos al backend
-      fetch('http://localhost:3000/api/reservas', {
+      fetch('/api/reservas', { // ← aquí ya no uses localhost en producción
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(datos)
@@ -575,7 +583,6 @@ document.addEventListener("DOMContentLoaded", function () {
       .then(data => console.log("Respuesta del servidor:", data))
       .catch(err => console.error("Error en fetch:", err));
 
-      // Modal de agradecimiento
       const modal1 = bootstrap.Modal.getInstance(document.getElementById("confirmarreserva"));
       if (modal1) modal1.hide();
 
@@ -590,6 +597,7 @@ document.addEventListener("DOMContentLoaded", function () {
     location.reload();
   });
 </script>
+
 
 
 

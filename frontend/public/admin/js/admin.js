@@ -8,7 +8,7 @@ async function verificarAdmin() {
 
 verificarAdmin();
 
-// Manejo de navegación del panel
+// ======== NAVEGACIÓN DEL PANEL ========
 document.querySelectorAll('[data-view]').forEach(link => {
   link.addEventListener('click', e => {
     e.preventDefault();
@@ -64,7 +64,6 @@ function renderReservas(lista) {
 // ======== RESTAURANTES ========
 async function cargarRestaurantes() {
   const res = await fetch('/api/admin/restaurantes', { credentials: 'include' });
-
   const restaurantes = await res.json();
   renderRestaurantes(restaurantes);
 }
@@ -73,17 +72,37 @@ function renderRestaurantes(lista) {
   const tbody = document.querySelector('#tablaRestaurantes tbody');
   tbody.innerHTML = '';
   lista.forEach(r => {
+    const fecha = r.fecha_creacion ? new Date(r.fecha_creacion).toLocaleDateString() : '—';
     const tr = document.createElement('tr');
     tr.innerHTML = `
       <td>${r.nombre}</td>
-      <td>${r.tipo_comida}</td>
-      <td>${r.ciudad}</td>
+      <td>${r.tipo_comida || '—'}</td>
+      <td>${r.ciudad || '—'}</td>
       <td>${r.activo ? 'Activo' : 'Inactivo'}</td>
-      <td>${new Date(r.fecha_creacion).toLocaleDateString()}</td>
-      <td><a href="${r.carpeta_html}" target="_blank">Ver página</a></td>
+      <td>${fecha}</td>
+      <td>${r.carpeta_html ? `<a href="${r.carpeta_html}" target="_blank">Ver página</a>` : '—'}</td>
+      <td>
+        ${(r.id === 1 || r.id === 2)
+          ? '<span class="text-muted">Default</span>'
+          : `<button class="btn btn-danger btn-sm" onclick="eliminarRestaurante(${r.id})">Eliminar</button>`
+        }
+      </td>
     `;
     tbody.appendChild(tr);
   });
+}
+
+async function eliminarRestaurante(id) {
+  if (!confirm('¿Seguro que quieres eliminar este restaurante?')) return;
+  try {
+    await fetch(`/api/admin/restaurantes/${id}`, {
+      method: 'DELETE',
+      credentials: 'include'
+    });
+    cargarRestaurantes();
+  } catch (error) {
+    console.error('Error eliminando restaurante:', error);
+  }
 }
 
 // ======== USUARIOS/ADMINS ========
@@ -108,9 +127,9 @@ function renderUsuarios(lista) {
       <td>${u.email}</td>
       <td>${u.rol}</td>
       <td>
-        ${u.esActual ? 
-          '<span class="text-muted">No puedes borrarte a ti mismo</span>' :
-          `<button class="btn btn-danger btn-sm" onclick="eliminarUsuario(${u.id}, '${u.rol}')">Eliminar</button>`
+        ${u.esActual 
+          ? '<span class="text-muted">No puedes borrarte a ti mismo</span>'
+          : `<button class="btn btn-danger btn-sm" onclick="eliminarUsuario(${u.id}, '${u.rol}')">Eliminar</button>`
         }
       </td>
     `;

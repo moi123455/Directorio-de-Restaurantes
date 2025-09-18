@@ -993,6 +993,26 @@ app.get('/api/admin/reservas', requireAdmin, async (req, res) => {
   res.json(rows);
 });
 
+// ==================== ELIMINAR RESTAURANTE (SOLO ADMIN) ====================
+app.delete('/api/admin/restaurantes/:id', requireAdmin, async (req, res) => {
+  try {
+    const id = parseInt(req.params.id);
+
+    // Bloquear borrado de restaurantes por defecto
+    if (id === 1 || id === 2) {
+      return res.status(400).json({ error: 'Este restaurante es predeterminado y no puede ser eliminado' });
+    }
+
+    await db.execute('DELETE FROM restaurantes WHERE id = ?', [id]);
+    res.json({ message: 'Restaurante eliminado correctamente' });
+  } catch (error) {
+    console.error('Error eliminando restaurante:', error);
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+});
+
+
+
 
 // ==================== ACTUALIZAR ESTADO DE RESERVA (SOLO ADMIN) ====================
 app.put('/api/reservas/:id/estado', requireAdmin, async (req, res) => {

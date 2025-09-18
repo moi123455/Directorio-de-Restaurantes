@@ -993,6 +993,44 @@ app.put('/api/reservas/:id/estado', requireAdmin, async (req, res) => {
         res.status(500).json({ error: 'Error interno del servidor' });
     }
 });
+// ==================== GESTIÓN DE USUARIOS Y ADMINS (SOLO ADMIN) ====================
+app.get('/api/admin/usuarios', requireAdmin, async (req, res) => {
+  try {
+    const [usuarios] = await db.execute(`SELECT id, nombre, email, 'usuario' AS rol FROM usuarios`);
+    const [admins] = await db.execute(`SELECT id, username AS nombre, email, 'admin' AS rol FROM administradores`);
+
+    // Marcar si es el admin actual para evitar que se borre a sí mismo
+    const todos = [...usuarios, ...admins].map(u => ({
+      ...u,
+      esActual: (u.rol === 'admin' && u.id === req.session.adminId)
+    }));
+
+    res.json(todos);
+  } catch (error) {
+    console.error('Error obteniendo usuarios/admins:', error);
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+});
+
+app.delete('/api/admin/usuarios/:id', requireAdmin, async (req, res) => {
+  try {
+    const { rol } = req.query;
+
+    // Evitar que un admin se borre a sí mismo
+    if (rol === 'admin' && parseInt(req.params.id) === req.session.adminId) {
+      return res.status(400).json({ error: 'No puedes eliminar tu propia cuenta de administrador' });
+    }
+
+    const tabla = rol === 'admin' ? 'administradores' : 'usuarios';
+    await db.execute(`DELETE FROM ${tabla} WHERE id = ?`, [req.params.id]);
+
+    res.json({ message: 'Usuario eliminado correctamente' });
+  } catch (error) {
+    console.error('Error eliminando usuario:', error);
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+});
+
 
 // ==================== SERVIR PÁGINAS DE RESTAURANTES ====================
 app.get('/reserva/:slug', (req, res) => {

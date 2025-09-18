@@ -322,9 +322,9 @@ document.getElementById('formLogin').addEventListener('submit', async (e) => {
   if (res.ok) {
     bootstrap.Modal.getInstance(document.getElementById('modalLogin')).hide();
     if (currentRole === 'admin') {
-      // Solo para tu demo
-      window.open('/phpmyadmin', '_blank');
-    }
+  window.open('/admin/index.html', '_blank');
+}
+
     location.reload();
   } else {
     alert(data.error || 'Error en la autenticación');

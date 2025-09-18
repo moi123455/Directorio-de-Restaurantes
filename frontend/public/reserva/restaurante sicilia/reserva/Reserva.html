@@ -22,6 +22,11 @@
         </div>
         </div>
         </nav>
+        <form class="row g-3" id="formReserva">
+  <!-- Campo oculto con el ID del restaurante -->
+  <input type="hidden" id="restauranteId" name="restaurante_id" value="1">
+  <!-- ↑ Cambia el value="1" por el ID real en tu base de datos -->
+   
 <form class="row g-3">
   <div class="col-md-6">
     <label for="inputEmail4" class="form-label">Correo electronico</label>
@@ -194,9 +199,10 @@
 
   <div class="col-12">
     <label for="restricciones" class="form-label">Alergias o Restricciones Alimenticias</label>
-    <input type="text" class="form-control" id="restricciones" placeholder="indique cualquier tipo de alergia o indicativos para su reserva, ejemplo: sin pimienta, sin mani o frutos secos.. etc.">
-  </div>
-  <div class="d-flex justify-content-start">
+    <input type="text" class="form-control" id="restricciones" name="comentarios" placeholder="Indique cualquier tipo de alergia o indicativos para su reserva, ejemplo: sin pimienta, sin maní o frutos secos.. etc.">
+</div>
+
+<div class="d-flex justify-content-start">
     <button class="btn btn-warning" id="advertencia" type="button" data-bs-toggle="collapse" data-bs-target="#eventoPrivado">
         ¿Reserva privada o especial?
     </button>
@@ -204,7 +210,7 @@
 
 <div class="collapse mt-3" id="eventoPrivado">
     <div class="card card-body">
-        <label for="motivoPrivado" class="form-label">indique por qué la reserva seria especial o privada:</label>
+        <label for="motivoPrivado" class="form-label">Indique por qué la reserva sería especial o privada:</label>
         <textarea class="form-control" id="motivoPrivado" rows="3" placeholder="Ejemplo: Cumpleaños, cena de negocios, aniversario..."></textarea>
 
         <div class="form-check mt-2">
@@ -220,7 +226,7 @@
     </div>
 </div>
 
-  <div id="mapaRestaurante">
+<div id="mapaRestaurante">
     <button class="mesa" data-mesa="1">1</button>
     <button class="mesa" data-mesa="2">2</button>
     <button class="mesa" data-mesa="3">3</button>
@@ -231,17 +237,19 @@
     <button class="mesa" data-mesa="8">8</button>
 
     <div id="modalReserva">
-    <p id="mesaConfirmada">Mesa seleccionada: Ninguna</p>
+        <p id="mesaConfirmada">Mesa seleccionada: Ninguna</p>
+    </div>
 </div>
 </div>
-  </div>
 </form>
-<!-- Button trigger modal -->
- <div class="text-center mt-4">
-<button type="button" class="btn btn-primary btn-lg" id="botonConfirmarReserva" data-bs-toggle="modal" data-bs-target="#confirmarreserva">
-  Confirmar pago y reserva
-</button>
+
+<!-- Botón para abrir modal de confirmación -->
+<div class="text-center mt-4">
+    <button type="button" class="btn btn-primary btn-lg" id="botonConfirmarReserva" data-bs-toggle="modal" data-bs-target="#confirmarreserva">
+        Confirmar pago y reserva
+    </button>
 </div>
+
 
 <!-- Modal -->
 <div class="modal fade" id="confirmarreserva" tabindex="-1" aria-labelledby="modalReservaLabel" aria-hidden="true">
@@ -528,75 +536,76 @@ document.addEventListener("DOMContentLoaded", function () {
     return completo;
   }
 
-  // Escuchar cambios en inputs y selects
+  // Escuchar cambios
   document.querySelectorAll("input, select").forEach(el => {
     el.addEventListener("input", validarFormularioCompleto);
     el.addEventListener("change", validarFormularioCompleto);
   });
-
-  // Escuchar selección de comida
-  document.querySelectorAll(".seleccionar-comida").forEach(btn => {
-    btn.addEventListener("click", () => {
-      setTimeout(validarFormularioCompleto, 50);
-    });
+  document.querySelectorAll(".seleccionar-comida, .mesa").forEach(btn => {
+    btn.addEventListener("click", () => setTimeout(validarFormularioCompleto, 50));
   });
-
-  // Escuchar selección de mesa
-  document.querySelectorAll(".mesa").forEach(btn => {
-    btn.addEventListener("click", () => {
-      setTimeout(validarFormularioCompleto, 50);
-    });
-  });
-
-  // Escuchar campo de grupo grande
   document.getElementById("cantidadGrupo").addEventListener("input", validarFormularioCompleto);
-
-  // Inicializar estado del botón
   validarFormularioCompleto();
 
   // Click en el botón de pago
-  botonPago.addEventListener("click", function () {
-    if (validarFormularioCompleto()) {
-      const datos = {
-        restaurante_id: 1,
-        nombre: document.getElementById("inputAddress")?.value.trim() || null,
-        email: document.getElementById("inputEmail4")?.value.trim() || null,
-        telefono: document.getElementById("inputTelefono")?.value.trim() || null,
-        fecha: document.getElementById("fechaReserva")?.value
-          ? document.getElementById("fechaReserva").value.trim().split('/').reverse().join('-')
-          : null,
-        hora: document.getElementById("horaReserva")?.value.trim() || null,
-        personas: document.getElementById("mesaSelect")?.value === "etc"
-          ? (document.getElementById("cantidadGrupo")?.value.trim() || null)
-          : (document.getElementById("mesaSelect")?.value || null),
-        comentarios: document.getElementById("restricciones")?.value.trim() || null
-      };
+  botonPago.addEventListener("click", async function () {
+    if (!validarFormularioCompleto()) return;
 
-      console.log("Datos que se enviarán:", datos);
+    const fechaInput = document.getElementById("fechaReserva").value.trim();
+    let fecha = "";
+    if (fechaInput.includes("/")) {
+      const [dia, mes, anio] = fechaInput.split("/");
+      fecha = `${anio}-${mes.padStart(2, "0")}-${dia.padStart(2, "0")}`;
+    } else {
+      fecha = fechaInput;
+    }
 
-      fetch('/api/reservas', { // ← aquí ya no uses localhost en producción
+    const datos = {
+      restaurante_id: document.getElementById("restauranteId").value,
+      nombre: document.getElementById("inputAddress").value.trim(),
+      email: document.getElementById("inputEmail4").value.trim(),
+      telefono: document.getElementById("inputTelefono").value.trim(),
+      fecha,
+      hora: document.getElementById("horaReserva").value.trim(),
+      personas: document.getElementById("mesaSelect").value === "etc"
+        ? document.getElementById("cantidadGrupo").value.trim()
+        : document.getElementById("mesaSelect").value,
+      comentarios: document.getElementById("restricciones").value.trim()
+    };
+
+    console.log("Datos que se enviarán:", datos);
+
+    try {
+      const res = await fetch('/api/reservas', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include', // ← importante para enviar la cookie de sesión
         body: JSON.stringify(datos)
-      })
-      .then(res => res.json())
-      .then(data => console.log("Respuesta del servidor:", data))
-      .catch(err => console.error("Error en fetch:", err));
+      });
 
+      const data = await res.json();
+
+      if (!res.ok) {
+        alert(data.error || "Error al crear la reserva");
+        return;
+      }
+
+      // Cerrar modal de confirmación y abrir modal de agradecimiento
       const modal1 = bootstrap.Modal.getInstance(document.getElementById("confirmarreserva"));
       if (modal1) modal1.hide();
-
       setTimeout(() => {
-        const modalGracias = new bootstrap.Modal(document.getElementById("modalGraciasFinal"));
-        modalGracias.show();
+        new bootstrap.Modal(document.getElementById("modalGraciasFinal")).show();
       }, 400);
+
+    } catch (err) {
+      console.error("Error en fetch:", err);
+      alert("Error de conexión al crear la reserva");
     }
   });
 
-  document.getElementById("cerrarFinal").addEventListener("click", function () {
-    location.reload();
-  });
+  document.getElementById("cerrarFinal").addEventListener("click", () => location.reload());
 </script>
+
 
 
 

@@ -63,7 +63,8 @@ function renderReservas(lista) {
 
 // ======== RESTAURANTES ========
 async function cargarRestaurantes() {
-  const res = await fetch('/api/restaurantes', { credentials: 'include' });
+  const res = await fetch('/api/admin/restaurantes', { credentials: 'include' });
+
   const restaurantes = await res.json();
   renderRestaurantes(restaurantes);
 }

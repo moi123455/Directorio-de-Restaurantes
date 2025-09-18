@@ -969,6 +969,18 @@ app.get('/api/restaurantes/:id/reservas', requireAdmin, async (req, res) => {
         res.status(500).json({ error: 'Error interno del servidor' });
     }
 });
+// ==================== LISTAR TODOS LOS RESTAURANTES (SOLO ADMIN) ====================
+app.get('/api/admin/restaurantes', requireAdmin, async (req, res) => {
+  try {
+    const [rows] = await db.execute(
+      'SELECT * FROM restaurantes ORDER BY fecha_creacion DESC'
+    );
+    res.json(rows);
+  } catch (error) {
+    console.error('Error obteniendo restaurantes (admin):', error);
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+});
 
 // ==================== OBTENER LISTA DE RESERVAS (SOLO ADMIN) ====================
 app.get('/api/admin/reservas', requireAdmin, async (req, res) => {

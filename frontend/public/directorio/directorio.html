@@ -300,6 +300,23 @@ document.getElementById('btnGoRegistro').addEventListener('click', () => {
   bootstrap.Modal.getInstance(document.getElementById('modalAccion')).hide();
   new bootstrap.Modal(document.getElementById('modalRegistro')).show();
 });
+// Elegir rol y pasar al modal de acción
+document.getElementById('btnUsuario').addEventListener('click', () => {
+  currentRole = 'usuario';
+  // Mostrar botón de registro para usuarios
+  document.getElementById('btnGoRegistro').style.display = 'inline-block';
+  bootstrap.Modal.getInstance(document.getElementById('modalRol')).hide();
+  new bootstrap.Modal(document.getElementById('modalAccion')).show();
+});
+
+document.getElementById('btnAdmin').addEventListener('click', () => {
+  currentRole = 'admin';
+  // Ocultar botón de registro para admins
+  document.getElementById('btnGoRegistro').style.display = 'none';
+  bootstrap.Modal.getInstance(document.getElementById('modalRol')).hide();
+  new bootstrap.Modal(document.getElementById('modalAccion')).show();
+});
+
 
 // LOGIN
 document.getElementById('formLogin').addEventListener('submit', async (e) => {
